@@ -1,0 +1,74 @@
+C51 COMPILER V9.57.0.0   AD                                                                03/22/2019 10:51:37 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE AD
+OBJECT MODULE PLACED IN .\Objects\AD.obj
+COMPILER INVOKED BY: D:\KEIL\ARM\C51\BIN\C51.EXE ..\SYSTEM\AD.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYSTEM;..\HARDWARE;..
+                    -\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\AD.lst) TABS(2) OBJECT(.\Objects\AD.obj)
+
+line level    source
+
+   1          #include "AD.h"
+   2          #include "intrins.h"
+   3          
+   4          unsigned char high;
+   5          unsigned char low;
+   6          u16 date,angle;
+   7          //unsigned char h8,l8;
+   8          unsigned char ang[3]={0};
+   9          
+  10          void ADC_init(void)
+  11          {
+  12   1          P1M0 = 0x00;                               //设置P1.0为ADC口
+  13   1          P1M1 = 0x01;
+  14   1          ADCCFG = 0x0f;                           //设置ADC时钟为系统时钟/2/16/16
+  15   1      }
+  16          
+  17           
+  18          void ADC_contrl(void)
+  19          {
+  20   1          ADC_CONTR = 0x80;                           //使能ADC模块
+  21   1          ADC_CONTR |= 0x40;                          //启动AD转换
+  22   1          _nop_();
+  23   1          _nop_();
+  24   1          while (!(ADC_CONTR & 0x20));                //查询ADC完成标志
+  25   1          ADC_CONTR &= ~0x20;                         //清完成标志
+  26   1      }
+  27          
+  28          void ADC_data(void)
+  29          {
+  30   1      //    ADCCFG = 0x00;                              //设置结果左对齐
+  31   1      //    high = ADC_RES;                              //A存储ADC的12位结果的高8位
+  32   1      //    low = ADC_RESL;                               //B[7:4]存储ADC的12位结果的低4位,B[3:0]为0
+  33   1        
+  34   1        ADCCFG = 0x20;                              //设置结果右对齐
+  35   1        high = ADC_RES;                              //A[3:0]存储ADC的12位结果的高4位,A[7:4]为0
+  36   1        low = ADC_RESL;                               //B存储ADC的12位结果的低8位
+  37   1        
+  38   1      }
+  39          
+  40          void Converse(void)   //转换成角度
+  41          {
+  42   1        date=high*16*16+low; 
+  43   1        angle=(360.0/3510.0)*date; //角度计算公式
+  44   1        
+  45   1        ang[0]=(angle>>8)&0xff;  //角度值高八位
+  46   1        ang[1]=angle&0xff;        //角度值第八位
+  47   1        
+  48   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     83    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.57.0.0   AD                                                                03/22/2019 10:51:37 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
