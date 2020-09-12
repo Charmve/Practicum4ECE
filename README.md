@@ -53,7 +53,8 @@ Hello World！
 
 想要获得更多精彩内容，请关注微信公众号:迈微电子研发社
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200224183312714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)
+
+<div align=center>![微信公众号二维码](https://image.jiqizhixin.com/uploads/editor/d8595d93-e8c9-4abf-91f4-105384736912/%E5%9B%BE%E7%89%8712.jpg)
 
                                       △微信扫一扫，关注我
 
