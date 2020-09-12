@@ -56,7 +56,7 @@ Hello World！
 <div align=center><img src="https://image.jiqizhixin.com/uploads/editor/d8595d93-e8c9-4abf-91f4-105384736912/%E5%9B%BE%E7%89%8712.jpg"></div>
 
 
-                                      △微信扫一扫，关注我
+                                      <div align=center>△微信扫一扫，关注我</div>
 
 
 
