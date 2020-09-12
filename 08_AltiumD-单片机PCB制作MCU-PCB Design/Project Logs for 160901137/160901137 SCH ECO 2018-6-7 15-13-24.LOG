@@ -1,0 +1,2 @@
+Remove Pin=J_RST-1 From Net=RST1
+Change Component Comment: Designator=J_RST Old Comment= New Comment=RST1

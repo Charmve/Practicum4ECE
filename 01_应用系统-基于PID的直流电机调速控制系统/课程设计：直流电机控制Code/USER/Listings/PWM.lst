@@ -1,0 +1,70 @@
+C51 COMPILER V9.57.0.0   PWM                                                               12/29/2018 11:46:44 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE PWM
+OBJECT MODULE PLACED IN .\Objects\PWM.obj
+COMPILER INVOKED BY: C:\Software\Keil_C51\C51\BIN\C51.EXE ..\HARDWARE\PWM.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYS
+                    -TEM;..\HARDWARE;..\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\PWM.lst) TABS(2) OBJECT(.\Objects\PWM.obj)
+
+line level    source
+
+   1          #include "PWM.h"
+   2          
+   3          #define CCP_S0 0x10                 //P_SW1.4
+   4          #define CCP_S1 0x20                 //P_SW1.5
+   5          
+   6          void PWM_Init(unsigned char pwm_init)
+   7          {
+   8   1      //  ACC &= ~(CCP_S0 | CCP_S1);      //CCP_S0=0 CCP_S1=0
+   9   1      //  P_SW1 = ACC;                    //(P1.2/ECI, P1.1/CCP0, P1.0/CCP1, P3.7/CCP2)
+  10   1      //  ACC = P_SW1;
+  11   1      //  ACC &= ~(CCP_S0 | CCP_S1);      //CCP_S0=1 CCP_S1=0
+  12   1      //  ACC |= CCP_S0;                  //(P3.4/ECI_2, P3.5/CCP0_2, P3.6/CCP1_2, P3.7/CCP2_2)
+  13   1      //  P_SW1 = ACC;  
+  14   1        ACC = P_SW1;
+  15   1        ACC &= ~(CCP_S0 | CCP_S1);      //CCP_S0=0 CCP_S1=1
+  16   1        ACC |= CCP_S1;                  //(P2.4/ECI_3, P2.5/CCP0_3, P2.6/CCP1_3, P2.7/CCP2_3)
+  17   1        P_SW1 = ACC;  
+  18   1        CCON = 0;                       //初始化PCA控制寄存器
+  19   1                                        //PCA定时器停止
+  20   1                                        //清除CF标志
+  21   1                                        //清除模块中断标志
+  22   1        CL = 0;                         //复位PCA寄存器
+  23   1        CH = 0;
+  24   1        CMOD = 0x02;                    //设置PCA时钟源
+  25   1                                        //禁止PCA定时器溢出中断
+  26   1        PCA_PWM0 = 0x00;                //PCA模块0工作于8位PWM
+  27   1        CCAP0H = CCAP0L = pwm_init;     //PWM0的占空比为87.5% ((100H-20H)/100H)
+  28   1        CCAPM0 = 0x42;                  //PCA模块0为8位PWM模式
+  29   1      //  PCA_PWM1 = 0x40;                //PCA模块1工作于7位PWM
+  30   1      //  CCAP1H = CCAP1L = 0x20;         //PWM1的占空比为75% ((80H-20H)/80H)
+  31   1      //  CCAPM1 = 0x42;                  //PCA模块1为7位PWM模式
+  32   1      
+  33   1      //  PCA_PWM2 = 0x80;                //PCA模块2工作于6位PWM
+  34   1      //  CCAP2H = CCAP2L = 0x20;         //PWM2的占空比为50% ((40H-20H)/40H)
+  35   1      //  CCAPM2 = 0x42;                  //PCA模块2为6位PWM模式
+  36   1        CR = 1;                         //PCA定时器开始工作
+  37   1      }
+  38          
+  39          void PWM_Set(unsigned char pwm_set)
+  40          {
+  41   1        CCAP0H = CCAP0L = pwm_set;     //PWM0的占空比为87.5% ((100H-20H)/100H)
+  42   1      }
+  43          
+  44          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     35    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+C51 COMPILER V9.57.0.0   PWM                                                               12/29/2018 11:46:44 PAGE 2   
+
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

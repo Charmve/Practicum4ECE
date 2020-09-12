@@ -1,0 +1,3 @@
+Change Component Comment : Designator=J_RST Old Comment=RST1 New Comment=
+Added Pin To Net: NetName=RST1 Pin=J_RST-1
+Added Room: Name=160901137

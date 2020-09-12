@@ -1,0 +1,93 @@
+C51 COMPILER V9.57.0.0   ANOTC                                                             12/29/2018 11:46:43 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE ANOTC
+OBJECT MODULE PLACED IN .\Objects\AnoTc.obj
+COMPILER INVOKED BY: C:\Software\Keil_C51\C51\BIN\C51.EXE ..\SYSTEM\AnoTc.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYS
+                    -TEM;..\HARDWARE;..\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\AnoTc.lst) TABS(2) OBJECT(.\Objects\AnoTc.obj)
+
+line level    source
+
+   1          #include "AnoTc.h"
+   2          #include  "Serial.h"//串口1(P3.0/RxD, P3.1/TxD)
+   3          #include "config.h"
+   4          #include <myself.h>
+   5          
+   6          //数据拆分宏定义，在发送大于1字节的数据类型时，比如int16、float等，需要把数据拆分成单独字节进行发送
+   7          #define BYTE0(dwTemp)       ( *( (char *)(&dwTemp)    ) )
+   8          #define BYTE1(dwTemp)       ( *( (char *)(&dwTemp) + 1) )
+   9          #define BYTE2(dwTemp)       ( *( (char *)(&dwTemp) + 2) )
+  10          #define BYTE3(dwTemp)       ( *( (char *)(&dwTemp) + 3) )
+  11            
+  12          u16 testdatatosend[50]; //发送数据缓存
+  13          void TestSendData(u16 *dataToSend , u8 length)//数据发送函数
+  14          {
+*** WARNING C235 IN LINE 14 OF ..\SYSTEM\AnoTc.c: parameter 1: different types
+  15   1        u8 i;
+  16   1        for(i=0;i<length;i++)
+  17   1        {
+  18   2          S1SendData(dataToSend[i]);
+  19   2          DelayNms(2);
+  20   2          //while((USART1->SR&0X40)==0);
+  21   2        }
+  22   1      }
+  23          
+  24          void Test_Send_User(unsigned int data1, unsigned int data2, unsigned int data3) 
+  25          { //发送用户数据，这里有3个数据，分别对应本教程3个数据
+  26   1        unsigned char _cnt=0;
+  27   1        unsigned char i;
+  28   1        unsigned char sum = 0;  //以下为计算sum校验字节，从0xAA也就是首字节，一直到sum字节前一字节
+  29   1        
+  30   1        testdatatosend[_cnt++]=0xAA;//0xAA为帧头
+  31   1        testdatatosend[_cnt++]=0x05;//0x05为数据发送源，具体请参考匿名协议，本字节用户可以随意更改
+  32   1        testdatatosend[_cnt++]=0xAF;//0xAF为数据目的地，AF表示上位机，具体请参考匿名协议
+  33   1        testdatatosend[_cnt++]=0xF1;//0xF1，表示本帧为F1用户自定义帧，对应高级收码的F1功能帧
+  34   1        testdatatosend[_cnt++]=0;//本字节表示数据长度，这里先=0，函数最后再赋值，这样就不用人工计算长度了
+  35   1       
+  36   1        testdatatosend[_cnt++]=BYTE0(data1);//将要发送的数据放至发送缓冲区
+  37   1        testdatatosend[_cnt++]=BYTE1(data1);
+  38   1        
+  39   1        testdatatosend[_cnt++]=BYTE0(data2);//将要发送的数据放至发送缓冲区
+  40   1        testdatatosend[_cnt++]=BYTE1(data2);
+  41   1        
+  42   1        testdatatosend[_cnt++]=BYTE0(data3);
+  43   1        testdatatosend[_cnt++]=BYTE1(data3);
+  44   1       
+  45   1        testdatatosend[4] = _cnt-5;//_cnt用来计算数据长度，减5为减去帧开头5个非数据字节
+  46   1        
+  47   1      
+  48   1        for(i=0;i<_cnt;i++)
+  49   1          sum += testdatatosend[i];
+  50   1        
+  51   1        testdatatosend[_cnt++]=sum; //将sum校验数据放置最后一字节
+  52   1       
+  53   1        TestSendData(testdatatosend, _cnt); //调用发送数据函数
+C51 COMPILER V9.57.0.0   ANOTC                                                             12/29/2018 11:46:43 PAGE 2   
+
+  54   1      }
+  55           
+  56           
+  57           
+  58           
+  59          //static void Loop_1000Hz(void)//1ms执行一次
+  60          //{
+  61          //  static u16 cnt = 0;
+  62          //  cnt++;
+  63          //  Test_Send_User(cnt,12,-123);//发送用户数据
+  64          
+  65          
+  66          //}
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    433    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    100      11
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

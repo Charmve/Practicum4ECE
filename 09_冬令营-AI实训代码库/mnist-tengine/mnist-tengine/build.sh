@@ -1,0 +1,1 @@
+g++ -o MNIST mnist.cpp -I/usr/local/AID/Tengine/include/ -I/usr/include/ -L/usr/local/AID/Tengine/lib -L/usr/lib64/ -lopencv_imgproc -lopencv_highgui -lopencv_core -lopencv_imgcodecs -ltengine -lrockchip_vendor

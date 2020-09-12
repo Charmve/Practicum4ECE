@@ -1,0 +1,190 @@
+C51 COMPILER V9.57.0.0   IIC                                                               12/29/2018 11:46:43 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE IIC
+OBJECT MODULE PLACED IN .\Objects\IIC.obj
+COMPILER INVOKED BY: C:\Software\Keil_C51\C51\BIN\C51.EXE ..\SYSTEM\IIC.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYSTE
+                    -M;..\HARDWARE;..\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\IIC.lst) TABS(2) OBJECT(.\Objects\IIC.obj)
+
+line level    source
+
+   1          #include  "IIC.h"
+   2          #include  "intrins.h"
+   3          #include  <STC15F2K60S2.h>
+   4          #include  "Serial.h"
+   5          #define nop _nop_();
+   6          #define IIC_ADDR 0x2A//硬件地址
+   7          sbit SCL=P0^6;
+   8          sbit SDA=P0^7;
+   9          // ------------------------------------------------------------
+  10          // IO口模拟I2C通信
+  11          // ------------------------------------------------------------
+  12          
+  13          
+  14          /*****************以下是对IIC总线的操作子程序***/
+  15          /*****************启动总线**********************/
+  16          void IICStart( )
+  17          {
+  18   1        SCL=0;                  //
+  19   1        SDA=1;  
+  20   1        nop;nop;  
+  21   1        SCL=1;
+  22   1        nop;nop;nop;nop;nop;nop;nop;//
+  23   1        SDA=0;
+  24   1        nop;nop;nop;nop;nop;nop;nop;
+  25   1        SCL=0;
+  26   1                        //
+  27   1      }
+  28          
+  29          /*****************停止IIC总线****************/
+  30          void IICStop( )
+  31          {
+  32   1        SCL=0;                  //
+  33   1        SDA=0;  
+  34   1        nop;nop;  
+  35   1        SCL=1;
+  36   1        nop;nop;nop;nop;nop;nop;nop;//
+  37   1        SDA=1;
+  38   1        nop;nop;nop;nop;nop;nop;nop;
+  39   1        SCL=0;
+  40   1      }
+  41          
+  42          
+  43          
+  44          /***************对IIC总线产生应答*******************/
+  45          void IICACK( )
+  46          {
+  47   1        SCL=0;                  
+  48   1        SDA=0;//
+  49   1        nop;nop;
+  50   1        SCL=1;
+  51   1        nop;nop;nop;nop;nop;nop;nop;
+  52   1        SCL=0;
+  53   1      
+  54   1      }
+C51 COMPILER V9.57.0.0   IIC                                                               12/29/2018 11:46:43 PAGE 2   
+
+  55          
+  56          /**************检查应答位*******************/
+  57          //等待应答信号到来
+  58          //返回值: 0,接受应答失败
+  59          //        1,接受应答成功
+  60          bit IICReadAck( )
+  61          {
+  62   1        unsigned char ucErrTime=0;
+  63   1      
+  64   1        SCL=0;                  
+  65   1        SDA=1;//读IO先置高电平  
+  66   1        nop;nop;
+  67   1        SCL=1;
+  68   1        nop;nop;nop;nop;
+  69   1        while(SDA==1)
+  70   1        {
+  71   2          ucErrTime++;
+  72   2          if(ucErrTime>100)
+  73   2          {
+  74   3      
+  75   3            IICStop( );
+  76   3            return(0);//未接收到应答
+  77   3          }
+  78   2        }
+  79   1        nop;nop;  
+  80   1        SCL=0;
+  81   1        return(1);
+  82   1      }
+  83          
+  84          /*****************不对IIC总线产生应答***************/
+  85          void IICNoAck( )
+  86          {
+  87   1        
+  88   1        SCL=0;                  
+  89   1        SDA=1;//
+  90   1        nop;nop;
+  91   1        SCL=1;
+  92   1        nop;nop;nop;nop;nop;nop;nop;
+  93   1        SCL=0;
+  94   1      
+  95   1      }
+  96          
+  97          /*******************向IIC总线写数据*********************/
+  98          void IICSendByte(unsigned char sendbyte )
+  99          {
+ 100   1        unsigned char data j=8;
+ 101   1      
+ 102   1        for(;j>0;j--)
+ 103   1           {
+ 104   2             SCL=0;
+ 105   2             sendbyte<<=1;        //无论C51怎样实现这个操作，始终会使CY=sendbyte^7;
+ 106   2             SDA=CY;
+ 107   2             nop;nop;
+ 108   2             SCL=1;
+ 109   2             nop;nop;nop;nop;nop;nop;nop;      
+ 110   2           }
+ 111   1        SCL=0;
+ 112   1      }
+ 113          
+ 114          /**********************从IIC总线上读数据子程序**********/
+ 115          unsigned char IICReadByte( )
+ 116          {
+C51 COMPILER V9.57.0.0   IIC                                                               12/29/2018 11:46:43 PAGE 3   
+
+ 117   1        unsigned char cReceiveData=0,i=8;
+ 118   1        SCL=0;
+ 119   1        SDA=1;//读IO先置高电平  
+ 120   1        nop;nop;
+ 121   1        while(i--)
+ 122   1           {
+ 123   2             SCL=1;
+ 124   2             nop;nop;nop;nop;
+ 125   2             cReceiveData=(cReceiveData<<1)|SDA;
+ 126   2             SCL=0;
+ 127   2             nop;nop;nop;nop;nop;nop
+ 128   2             nop;nop;nop;nop;nop;nop
+ 129   2           }
+ 130   1        return(cReceiveData);
+ 131   1      }
+ 132          
+ 133          
+ 134          unsigned int Read2Byte(unsigned char RegisterAddress)//
+ 135          {
+ 136   1        unsigned int RegisterData;//存放读到的2个字节
+ 137   1        IICStart( ); //启始信号
+ 138   1        IICSendByte((IIC_ADDR<<1)|0 );//发送器件地址+写命令
+ 139   1      
+ 140   1        if(IICReadAck( )==1)    //等待应答
+ 141   1        {   
+ 142   2      
+ 143   2          
+ 144   2          IICSendByte(RegisterAddress );  //写寄存器地址
+ 145   2          if(IICReadAck( )==0) return(0);   //等待应答
+ 146   2          IICStart( );
+ 147   2          IICSendByte((IIC_ADDR<<1)|1 );//发送器件地址+读命令
+ 148   2          if(IICReadAck( )==0) return(0);   //等待应答
+ 149   2          RegisterData=IICReadByte( )<<8;//读取数据
+ 150   2          IICAck( );  //发送ACK
+ 151   2          RegisterData|=IICReadByte( );  //读取数据
+ 152   2          IICNoAck( );  //发送nACK
+ 153   2          IICStop( );     //产生一个停止条件
+ 154   2          return RegisterData;    
+ 155   2        }
+ 156   1        else//无应答，亮测试LED报警
+ 157   1        {
+ 158   2      //    TestLed=0;
+ 159   2          return 0; 
+ 160   2          
+ 161   2        }
+ 162   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    287    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       2
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

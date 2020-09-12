@@ -1,0 +1,34 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: picture - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\张益达\AppData\Local\Temp\RSPA98C.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/picture.pdb" /debug /machine:I386 /out:"Debug/picture.exe" /pdbtype:sept 
+".\Debug\ChildFrm.obj"
+".\Debug\DIB.obj"
+".\Debug\MainFrm.obj"
+".\Debug\mydialog.obj"
+".\Debug\mydialog1.obj"
+".\Debug\mydialog2.obj"
+".\Debug\picture.obj"
+".\Debug\pictureDoc.obj"
+".\Debug\pictureView.obj"
+".\Debug\StdAfx.obj"
+".\Debug\picture.res"
+]
+Creating command line "link.exe @"C:\Users\张益达\AppData\Local\Temp\RSPA98C.tmp""
+<h3>Output Window</h3>
+Linking...
+
+
+
+<h3>Results</h3>
+picture.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

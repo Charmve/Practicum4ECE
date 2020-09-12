@@ -1,0 +1,148 @@
+C51 COMPILER V9.54   MAIN                                                                  10/21/2018 19:40:26 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: F:\keil\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYSTEM;..\HARDWARE;..\USER) DEBUG
+                    - OBJECTEXTEND PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include  "config.h"
+   2          #include  "Serial.h"//串口1(P3.0/RxD, P3.1/TxD)
+   3          #include <myself.h>
+   4          #include  "AD.h"
+   5          #include "FDC2214.h"
+   6          #include "stdio.h"
+   7          #include "oled.h"
+   8          
+   9          void main()
+  10          {
+  11   1        extern bit bS1Rec;//串口接收到数据标志
+  12   1        extern bit bFlag2ms,bFlag10ms;//2ms标志 
+  13   1        extern bit bFlagAD;//AD转换标志 
+  14   1        extern unsigned char cS1Rec;//串口接收到字符
+  15   1        extern unsigned char cADCResult;//AD高8位 
+  16   1        unsigned char xdata cKeyPressNumber=0x06;
+  17   1        unsigned long xdata FDC2214CH[4]={0,0,0,0};
+  18   1        unsigned char xdata i=0;
+  19   1        unsigned char* xdata cindexTemp=0;
+  20   1      //  bit TestKeyLastTime=TestKey;
+  21   1      //  bit tempTestKey=0;
+  22   1      
+  23   1        bFlag2ms=0;
+  24   1      
+  25   1        
+  26   1        GPIO_Inilize(GPIO_P0,GPIO_PullUp);//IO初始化//上拉准双向口
+  27   1        GPIO_Inilize(GPIO_P1,GPIO_PullUp);//IO初始化//上拉准双向口
+  28   1        GPIO_Inilize(GPIO_P2,GPIO_PullUp);//IO初始化//上拉准双向口
+  29   1        GPIO_Inilize(GPIO_P3,GPIO_PullUp);//IO初始化//上拉准双向口
+  30   1        GPIO_Inilize(GPIO_P4,GPIO_PullUp);//IO初始化//上拉准双向口
+  31   1        GPIO_Inilize(GPIO_P5,GPIO_PullUp);//IO初始化//上拉准双向口
+  32   1        GPIO_Inilize(GPIO_P5.4,GPIO_HighZ);//测试按键口浮空输入 
+  33   1      
+  34   1        DelayNms(1);//空调用，避免占用低128字节的Data空间
+  35   1      //  KeyPress(P55);
+  36   1      //  
+  37   1        Uart1Init();//串口1初始化
+  38   1        Timer0Init();//定时器0初始化
+  39   1        ADCInit();
+  40   1        FDC2214Init();  
+  41   1        OLED_Init();      //初始化OLED  
+  42   1        OLED_Clear() ;  
+  43   1      //  S1SendData(0x55);//串口1 HEX模式发送测试
+  44   1        OLED_ShowString(0,0,"CH0:",16);
+  45   1        OLED_ShowString(0,2,"CH1:",16);   
+  46   1        OLED_ShowString(0,4,"CH2:",16); 
+  47   1        OLED_ShowString(0,6,"CH3:",16);
+  48   1        while(1)
+  49   1        { 
+  50   2      
+  51   2      
+  52   2          if(bFlagAD==1)
+  53   2          {
+  54   3            bFlagAD=0;
+C51 COMPILER V9.54   MAIN                                                                  10/21/2018 19:40:26 PAGE 2   
+
+  55   3            cKeyPressNumber=Judge5DKeyNum(cADCResult);//读取按键值
+  56   3      //      S1SendData(cKeyPressNum);              //按键值发送到串口 
+  57   3          } 
+  58   2          switch(cKeyPressNumber) //根据按键执行 
+  59   2          { 
+  60   3            case 0:S1SendData(0x00);cKeyPressNumber=0x06;break;//串口发送 ; // KeyStartStop
+  61   3            case 1://KeyDown
+  62   3              S1SendData(0x01);
+  63   3              break;//串口发送  ; 
+  64   3            case 2:S1SendData(0x02);cKeyPressNumber=0x06;break;//串口发送 ; // KeyMiddle 
+  65   3            case 3:S1SendData(0x03);cKeyPressNumber=0x06;break;//串口发送 ; //  KeyRight
+  66   3            case 4:S1SendData(0x04);cKeyPressNumber=0x06;break;//串口发送 ; // KeyLeft 
+  67   3            case 5:S1SendData(0x05);cKeyPressNumber=0x06;break;//串口发送 ; // KeyUp
+  68   3            default:// NoneKey  
+  69   3              S1SendData(13);//回车
+  70   3              S1SendData(10);//换行     
+  71   3              S1SendString("FDC2214Value\r\n");//串口1 文本模式发送测试
+  72   3              for(i=0;i<4;i++)
+  73   3              {
+  74   4                FDC2214CH[i]=FCD2214ReadCH(i);
+  75   4      //          //16进制发送
+  76   4      //          S1SendData(0xC0+i);//各通道以C0，C1，C2，C3分隔
+  77   4      //          S1SendData(FDC2214CH[i]>>24);
+  78   4      //          S1SendData(FDC2214CH[i]>>16);
+  79   4      //          S1SendData(FDC2214CH[i]>>8);
+  80   4      //          S1SendData(FDC2214CH[i]);   
+  81   4      
+  82   4                //ASCII发送
+  83   4                S1SendString("CH");
+  84   4                S1SendData(i+0x30);//显示通道号
+  85   4                S1SendString(":");
+  86   4                
+  87   4                cindexTemp=Hex2ASCII(FDC2214CH[i]);//结果转换成ASCII码
+  88   4                S1SendString(cindexTemp);//以ASCII方式发送转换结果
+  89   4                S1SendData(13);//回车
+  90   4                S1SendData(10);//换行 
+  91   4      
+  92   4                OLED_ShowString(34,i*2,cindexTemp,16);  
+  93   4            //    OLED_ShowChar(0,0,50,16);//显示ASCII字符
+  94   4                
+  95   4              }       
+  96   3            
+  97   3            break;
+  98   3      
+  99   3      
+ 100   3            }
+ 101   2          }
+ 102   1          
+ 103   1      //    if(bFlag2ms==1)
+ 104   1      //    {
+ 105   1      //      bFlag2ms=0;
+ 106   1      //      if(KeyPress(TestKey)==1) 
+ 107   1      //      {
+ 108   1      //        TestLed=~TestLed;//LED状态反转
+ 109   1      //        S1SendData(0xAA);//串口发送 
+ 110   1      //        
+ 111   1      //      }
+ 112   1      //    }
+ 113   1        
+ 114   1      
+ 115   1      }
+ 116          
+C51 COMPILER V9.54   MAIN                                                                  10/21/2018 19:40:26 PAGE 3   
+
+ 117          
+ 118          
+ 119          
+ 120          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    454    ----
+   CONSTANT SIZE    =     56    ----
+   XDATA SIZE       =   ----      21
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

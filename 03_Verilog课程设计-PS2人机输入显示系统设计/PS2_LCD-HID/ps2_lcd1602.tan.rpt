@@ -1,0 +1,553 @@
+Classic Timing Analyzer report for ps2_lcd1602
+Sun Feb 20 19:38:03 2011
+Quartus II Version 9.0 Build 132 02/25/2009 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Timing Analyzer Summary
+  3. Timing Analyzer Settings
+  4. Clock Settings Summary
+  5. Parallel Compilation
+  6. Clock Setup: 'CLK_20M'
+  7. Clock Hold: 'CLK_20M'
+  8. tsu
+  9. tco
+ 10. th
+ 11. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2009 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                                                                                                                                                                                                       ;
++------------------------------+------------------------------------------+---------------+----------------------------------+-----------------------------------------+-------------------------------------------------+------------+----------+--------------+
+; Type                         ; Slack                                    ; Required Time ; Actual Time                      ; From                                    ; To                                              ; From Clock ; To Clock ; Failed Paths ;
++------------------------------+------------------------------------------+---------------+----------------------------------+-----------------------------------------+-------------------------------------------------+------------+----------+--------------+
+; Worst-case tsu               ; N/A                                      ; None          ; 3.715 ns                         ; PS2_DATA                                ; Ps2_Module:Ps2_Init|bit_shift[10]               ; --         ; CLK_20M  ; 0            ;
+; Worst-case tco               ; N/A                                      ; None          ; 9.291 ns                         ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; LCD_DATA[1]                                     ; CLK_20M    ; --       ; 0            ;
+; Worst-case th                ; N/A                                      ; None          ; -3.252 ns                        ; PS2_CLK                                 ; Ps2_Module:Ps2_Init|detect_edge[0]              ; --         ; CLK_20M  ; 0            ;
+; Clock Setup: 'CLK_20M'       ; N/A                                      ; None          ; 102.46 MHz ( period = 9.760 ns ) ; Ps2_Module:Ps2_Init|o_ps2_data[5]       ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en           ; CLK_20M    ; CLK_20M  ; 0            ;
+; Clock Hold: 'CLK_20M'        ; Not operational: Clock Skew > Data Delay ; None          ; N/A                              ; Ps2_Module:Ps2_Init|o_ps2_data[4]       ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; 50           ;
+; Total number of failed paths ;                                          ;               ;                                  ;                                         ;                                                 ;            ;          ; 50           ;
++------------------------------+------------------------------------------+---------------+----------------------------------+-----------------------------------------+-------------------------------------------------+------------+----------+--------------+
+
+
++--------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Settings                                                                                           ;
++---------------------------------------------------------------------+--------------------+------+----+-------------+
+; Option                                                              ; Setting            ; From ; To ; Entity Name ;
++---------------------------------------------------------------------+--------------------+------+----+-------------+
+; Device Name                                                         ; EP2C5T144C6        ;      ;    ;             ;
+; Timing Models                                                       ; Final              ;      ;    ;             ;
+; Default hold multicycle                                             ; Same as Multicycle ;      ;    ;             ;
+; Cut paths between unrelated clock domains                           ; On                 ;      ;    ;             ;
+; Cut off read during write signal paths                              ; On                 ;      ;    ;             ;
+; Cut off feedback from I/O pins                                      ; On                 ;      ;    ;             ;
+; Report Combined Fast/Slow Timing                                    ; Off                ;      ;    ;             ;
+; Ignore Clock Settings                                               ; Off                ;      ;    ;             ;
+; Analyze latches as synchronous elements                             ; On                 ;      ;    ;             ;
+; Enable Recovery/Removal analysis                                    ; Off                ;      ;    ;             ;
+; Enable Clock Latency                                                ; Off                ;      ;    ;             ;
+; Use TimeQuest Timing Analyzer                                       ; Off                ;      ;    ;             ;
+; Minimum Core Junction Temperature                                   ; 0                  ;      ;    ;             ;
+; Maximum Core Junction Temperature                                   ; 85                 ;      ;    ;             ;
+; Number of source nodes to report per destination node               ; 10                 ;      ;    ;             ;
+; Number of destination nodes to report                               ; 10                 ;      ;    ;             ;
+; Number of paths to report                                           ; 200                ;      ;    ;             ;
+; Report Minimum Timing Checks                                        ; Off                ;      ;    ;             ;
+; Use Fast Timing Models                                              ; Off                ;      ;    ;             ;
+; Report IO Paths Separately                                          ; Off                ;      ;    ;             ;
+; Perform Multicorner Analysis                                        ; On                 ;      ;    ;             ;
+; Reports the worst-case path for each clock domain and analysis      ; Off                ;      ;    ;             ;
+; Removes common clock path pessimism (CCPP) during slack computation ; Off                ;      ;    ;             ;
+; Output I/O Timing Endpoint                                          ; Near End           ;      ;    ;             ;
++---------------------------------------------------------------------+--------------------+------+----+-------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Settings Summary                                                                                                                                                             ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; Clock Node Name ; Clock Setting Name ; Type     ; Fmax Requirement ; Early Latency ; Late Latency ; Based on ; Multiply Base Fmax by ; Divide Base Fmax by ; Offset ; Phase offset ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+; CLK_20M         ;                    ; User Pin ; None             ; 0.000 ns      ; 0.000 ns     ; --       ; N/A                   ; N/A                 ; N/A    ;              ;
++-----------------+--------------------+----------+------------------+---------------+--------------+----------+-----------------------+---------------------+--------+--------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 2           ;
+; Maximum allowed            ; 2           ;
+;                            ;             ;
+; Average used               ; 1.00        ;
+; Maximum used               ; 1           ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     1 processor            ; 100.0%      ;
+;     2 processors           ;   0.0%      ;
++----------------------------+-------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Setup: 'CLK_20M'                                                                                                                                                                                                                                                                                ;
++-----------------------------------------+-----------------------------------------------------+-------------------------------------------------+-----------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; Slack                                   ; Actual fmax (period)                                ; From                                            ; To                                      ; From Clock ; To Clock ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
++-----------------------------------------+-----------------------------------------------------+-------------------------------------------------+-----------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.46 MHz ( period = 9.760 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.594 ns               ;
+; N/A                                     ; 102.88 MHz ( period = 9.720 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.539 ns               ;
+; N/A                                     ; 102.88 MHz ( period = 9.720 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.539 ns               ;
+; N/A                                     ; 102.88 MHz ( period = 9.720 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.539 ns               ;
+; N/A                                     ; 102.88 MHz ( period = 9.720 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.539 ns               ;
+; N/A                                     ; 102.88 MHz ( period = 9.720 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.539 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.46 MHz ( period = 9.666 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.500 ns               ;
+; N/A                                     ; 103.89 MHz ( period = 9.626 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.445 ns               ;
+; N/A                                     ; 103.89 MHz ( period = 9.626 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.445 ns               ;
+; N/A                                     ; 103.89 MHz ( period = 9.626 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.445 ns               ;
+; N/A                                     ; 103.89 MHz ( period = 9.626 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.445 ns               ;
+; N/A                                     ; 103.89 MHz ( period = 9.626 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.445 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.06 MHz ( period = 9.610 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.444 ns               ;
+; N/A                                     ; 104.49 MHz ( period = 9.570 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.389 ns               ;
+; N/A                                     ; 104.49 MHz ( period = 9.570 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.389 ns               ;
+; N/A                                     ; 104.49 MHz ( period = 9.570 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.389 ns               ;
+; N/A                                     ; 104.49 MHz ( period = 9.570 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.389 ns               ;
+; N/A                                     ; 104.49 MHz ( period = 9.570 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.389 ns               ;
+; N/A                                     ; 104.93 MHz ( period = 9.530 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.349 ns               ;
+; N/A                                     ; 104.93 MHz ( period = 9.530 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.349 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 104.98 MHz ( period = 9.526 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.361 ns               ;
+; N/A                                     ; 105.01 MHz ( period = 9.523 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.343 ns               ;
+; N/A                                     ; 105.01 MHz ( period = 9.523 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.343 ns               ;
+; N/A                                     ; 105.01 MHz ( period = 9.523 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.343 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.22 MHz ( period = 9.504 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.338 ns               ;
+; N/A                                     ; 105.42 MHz ( period = 9.486 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.306 ns               ;
+; N/A                                     ; 105.42 MHz ( period = 9.486 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.306 ns               ;
+; N/A                                     ; 105.42 MHz ( period = 9.486 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.306 ns               ;
+; N/A                                     ; 105.42 MHz ( period = 9.486 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.306 ns               ;
+; N/A                                     ; 105.42 MHz ( period = 9.486 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.306 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.51 MHz ( period = 9.478 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.312 ns               ;
+; N/A                                     ; 105.66 MHz ( period = 9.464 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.283 ns               ;
+; N/A                                     ; 105.66 MHz ( period = 9.464 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.283 ns               ;
+; N/A                                     ; 105.66 MHz ( period = 9.464 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.283 ns               ;
+; N/A                                     ; 105.66 MHz ( period = 9.464 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.283 ns               ;
+; N/A                                     ; 105.66 MHz ( period = 9.464 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.283 ns               ;
+; N/A                                     ; 105.95 MHz ( period = 9.438 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.257 ns               ;
+; N/A                                     ; 105.95 MHz ( period = 9.438 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.257 ns               ;
+; N/A                                     ; 105.95 MHz ( period = 9.438 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.257 ns               ;
+; N/A                                     ; 105.95 MHz ( period = 9.438 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.257 ns               ;
+; N/A                                     ; 105.95 MHz ( period = 9.438 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.257 ns               ;
+; N/A                                     ; 105.98 MHz ( period = 9.436 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.255 ns               ;
+; N/A                                     ; 105.98 MHz ( period = 9.436 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.255 ns               ;
+; N/A                                     ; 106.06 MHz ( period = 9.429 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.249 ns               ;
+; N/A                                     ; 106.06 MHz ( period = 9.429 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.249 ns               ;
+; N/A                                     ; 106.06 MHz ( period = 9.429 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.249 ns               ;
+; N/A                                     ; 106.39 MHz ( period = 9.399 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.219 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.51 MHz ( period = 9.389 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.223 ns               ;
+; N/A                                     ; 106.61 MHz ( period = 9.380 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.199 ns               ;
+; N/A                                     ; 106.61 MHz ( period = 9.380 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.199 ns               ;
+; N/A                                     ; 106.69 MHz ( period = 9.373 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.193 ns               ;
+; N/A                                     ; 106.69 MHz ( period = 9.373 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.193 ns               ;
+; N/A                                     ; 106.69 MHz ( period = 9.373 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.193 ns               ;
+; N/A                                     ; 106.96 MHz ( period = 9.349 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.168 ns               ;
+; N/A                                     ; 106.96 MHz ( period = 9.349 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.168 ns               ;
+; N/A                                     ; 106.96 MHz ( period = 9.349 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.168 ns               ;
+; N/A                                     ; 106.96 MHz ( period = 9.349 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.168 ns               ;
+; N/A                                     ; 106.96 MHz ( period = 9.349 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.168 ns               ;
+; N/A                                     ; 107.47 MHz ( period = 9.305 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[1]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.125 ns               ;
+; N/A                                     ; 107.57 MHz ( period = 9.296 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.116 ns               ;
+; N/A                                     ; 107.57 MHz ( period = 9.296 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.116 ns               ;
+; N/A                                     ; 107.65 MHz ( period = 9.289 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.110 ns               ;
+; N/A                                     ; 107.65 MHz ( period = 9.289 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.110 ns               ;
+; N/A                                     ; 107.65 MHz ( period = 9.289 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.110 ns               ;
+; N/A                                     ; 107.83 MHz ( period = 9.274 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.093 ns               ;
+; N/A                                     ; 107.83 MHz ( period = 9.274 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.093 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.087 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.087 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.087 ns               ;
+; N/A                                     ; 107.91 MHz ( period = 9.267 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.102 ns               ;
+; N/A                                     ; 108.12 MHz ( period = 9.249 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[4]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.069 ns               ;
+; N/A                                     ; 108.13 MHz ( period = 9.248 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.067 ns               ;
+; N/A                                     ; 108.13 MHz ( period = 9.248 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.067 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.14 MHz ( period = 9.247 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.081 ns               ;
+; N/A                                     ; 108.21 MHz ( period = 9.241 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.061 ns               ;
+; N/A                                     ; 108.21 MHz ( period = 9.241 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.061 ns               ;
+; N/A                                     ; 108.21 MHz ( period = 9.241 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.061 ns               ;
+; N/A                                     ; 108.38 MHz ( period = 9.227 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.047 ns               ;
+; N/A                                     ; 108.38 MHz ( period = 9.227 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.047 ns               ;
+; N/A                                     ; 108.38 MHz ( period = 9.227 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.047 ns               ;
+; N/A                                     ; 108.38 MHz ( period = 9.227 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.047 ns               ;
+; N/A                                     ; 108.38 MHz ( period = 9.227 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.047 ns               ;
+; N/A                                     ; 108.61 MHz ( period = 9.207 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|char_count[0]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.026 ns               ;
+; N/A                                     ; 108.61 MHz ( period = 9.207 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|char_count[1]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.026 ns               ;
+; N/A                                     ; 108.61 MHz ( period = 9.207 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|char_count[2]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.026 ns               ;
+; N/A                                     ; 108.61 MHz ( period = 9.207 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|char_count[3]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.026 ns               ;
+; N/A                                     ; 108.61 MHz ( period = 9.207 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|char_count[4]    ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 11.026 ns               ;
+; N/A                                     ; 109.11 MHz ( period = 9.165 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[3]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.986 ns               ;
+; N/A                                     ; 109.18 MHz ( period = 9.159 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.978 ns               ;
+; N/A                                     ; 109.18 MHz ( period = 9.159 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.978 ns               ;
+; N/A                                     ; 109.27 MHz ( period = 9.152 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.972 ns               ;
+; N/A                                     ; 109.27 MHz ( period = 9.152 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.972 ns               ;
+; N/A                                     ; 109.27 MHz ( period = 9.152 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.972 ns               ;
+; N/A                                     ; 109.37 MHz ( period = 9.143 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[2]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.963 ns               ;
+; N/A                                     ; 109.69 MHz ( period = 9.117 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[7]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.937 ns               ;
+; N/A                                     ; 110.66 MHz ( period = 9.037 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.857 ns               ;
+; N/A                                     ; 110.66 MHz ( period = 9.037 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.857 ns               ;
+; N/A                                     ; 110.74 MHz ( period = 9.030 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.851 ns               ;
+; N/A                                     ; 110.74 MHz ( period = 9.030 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.851 ns               ;
+; N/A                                     ; 110.74 MHz ( period = 9.030 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.851 ns               ;
+; N/A                                     ; 110.77 MHz ( period = 9.028 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[15]              ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.848 ns               ;
+; N/A                                     ; 110.90 MHz ( period = 9.017 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.836 ns               ;
+; N/A                                     ; 110.90 MHz ( period = 9.017 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.836 ns               ;
+; N/A                                     ; 110.99 MHz ( period = 9.010 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.830 ns               ;
+; N/A                                     ; 110.99 MHz ( period = 9.010 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.830 ns               ;
+; N/A                                     ; 110.99 MHz ( period = 9.010 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.830 ns               ;
+; N/A                                     ; 112.16 MHz ( period = 8.916 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[5]               ; LCD_1602:LCD_1602_Init|state.WRITE      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.735 ns               ;
+; N/A                                     ; 112.28 MHz ( period = 8.906 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[0]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.727 ns               ;
+; N/A                                     ; 112.54 MHz ( period = 8.886 ns )                    ; Ps2_Module:Ps2_Init|o_ps2_data[6]               ; LCD_1602:LCD_1602_Init|state.DDRAM      ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 10.706 ns               ;
+; N/A                                     ; 112.87 MHz ( period = 8.860 ns )                    ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000001 ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; CLK_20M    ; CLK_20M  ; None                        ; None                      ; 8.645 ns                ;
+; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;                                                 ;                                         ;            ;          ;                             ;                           ;                         ;
++-----------------------------------------+-----------------------------------------------------+-------------------------------------------------+-----------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clock Hold: 'CLK_20M'                                                                                                                                                                                                                        ;
++------------------------------------------+------------------------------------+-------------------------------------------------+------------+----------+----------------------------+----------------------------+--------------------------+
+; Minimum Slack                            ; From                               ; To                                              ; From Clock ; To Clock ; Required Hold Relationship ; Required Shortest P2P Time ; Actual Shortest P2P Time ;
++------------------------------------------+------------------------------------+-------------------------------------------------+------------+----------+----------------------------+----------------------------+--------------------------+
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 0.905 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[2]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 0.944 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[6]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 0.982 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[0]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.060 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.113 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[6]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.114 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[15] ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.124 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[0]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.201 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[7]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.213 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[15] ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.256 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[3]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.266 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[3]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.337 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[2]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.341 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[7]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.345 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[1]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.357 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[6]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.424 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[0]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.445 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[2]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01001010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.484 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[5]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.495 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[3]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01010011 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.518 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[15] ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.506 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[2]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.536 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.544 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[15] ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.566 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[3]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.581 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.575 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[1]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000100 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.600 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[5]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.627 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[7]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.655 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[3]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01001010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.668 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[1]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.742 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[2]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.735 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[7]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.738 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01001110 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.776 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[1]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.825 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[3]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01011010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.826 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[5]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.830 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01001000 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.903 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[5]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.933 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[5]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.937 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[6]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.925 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01010011 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.950 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000011 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.970 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[3]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110101 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 1.957 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[6]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01001010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 2.006 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[6]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 2.011 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[1]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01001010 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 2.026 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[4]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01011001 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 2.023 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[0]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01001000 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 2.049 ns                 ;
+; Not operational: Clock Skew > Data Delay ; Ps2_Module:Ps2_Init|o_ps2_data[1]  ; LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.00110101 ; CLK_20M    ; CLK_20M  ; None                       ; None                       ; 2.048 ns                 ;
++------------------------------------------+------------------------------------+-------------------------------------------------+------------+----------+----------------------------+----------------------------+--------------------------+
+
+
++----------------------------------------------------------------------------------------------+
+; tsu                                                                                          ;
++-------+--------------+------------+----------+------------------------------------+----------+
+; Slack ; Required tsu ; Actual tsu ; From     ; To                                 ; To Clock ;
++-------+--------------+------------+----------+------------------------------------+----------+
+; N/A   ; None         ; 3.715 ns   ; PS2_DATA ; Ps2_Module:Ps2_Init|bit_shift[10]  ; CLK_20M  ;
+; N/A   ; None         ; 3.482 ns   ; PS2_CLK  ; Ps2_Module:Ps2_Init|detect_edge[0] ; CLK_20M  ;
++-------+--------------+------------+----------+------------------------------------+----------+
+
+
++--------------------------------------------------------------------------------------------------------+
+; tco                                                                                                    ;
++-------+--------------+------------+-----------------------------------------+-------------+------------+
+; Slack ; Required tco ; Actual tco ; From                                    ; To          ; From Clock ;
++-------+--------------+------------+-----------------------------------------+-------------+------------+
+; N/A   ; None         ; 9.291 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0 ; LCD_DATA[1] ; CLK_20M    ;
+; N/A   ; None         ; 9.178 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~en   ; LCD_DATA[2] ; CLK_20M    ;
+; N/A   ; None         ; 9.144 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[2]~reg0 ; LCD_DATA[2] ; CLK_20M    ;
+; N/A   ; None         ; 9.000 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~en   ; LCD_DATA[0] ; CLK_20M    ;
+; N/A   ; None         ; 8.967 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~reg0 ; LCD_DATA[3] ; CLK_20M    ;
+; N/A   ; None         ; 8.965 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[0]~reg0 ; LCD_DATA[0] ; CLK_20M    ;
+; N/A   ; None         ; 8.944 ns   ; LCD_1602:LCD_1602_Init|LCD_RS           ; LCD_RS      ; CLK_20M    ;
+; N/A   ; None         ; 8.934 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~reg0 ; LCD_DATA[6] ; CLK_20M    ;
+; N/A   ; None         ; 8.931 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[6]~en   ; LCD_DATA[6] ; CLK_20M    ;
+; N/A   ; None         ; 8.916 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~en   ; LCD_DATA[7] ; CLK_20M    ;
+; N/A   ; None         ; 8.736 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~reg0 ; LCD_DATA[4] ; CLK_20M    ;
+; N/A   ; None         ; 8.697 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[1]~en   ; LCD_DATA[1] ; CLK_20M    ;
+; N/A   ; None         ; 8.679 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~reg0 ; LCD_DATA[5] ; CLK_20M    ;
+; N/A   ; None         ; 8.679 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[4]~en   ; LCD_DATA[4] ; CLK_20M    ;
+; N/A   ; None         ; 8.677 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[7]~reg0 ; LCD_DATA[7] ; CLK_20M    ;
+; N/A   ; None         ; 8.671 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[3]~en   ; LCD_DATA[3] ; CLK_20M    ;
+; N/A   ; None         ; 8.644 ns   ; LCD_1602:LCD_1602_Init|LCD_DATA[5]~en   ; LCD_DATA[5] ; CLK_20M    ;
+; N/A   ; None         ; 7.031 ns   ; Beep_Module:Beep_Init|beep_reg          ; BEEP        ; CLK_20M    ;
+; N/A   ; None         ; 6.538 ns   ; LCD_1602:LCD_1602_Init|LCD_CLOCK        ; LCD_EN      ; CLK_20M    ;
++-------+--------------+------------+-----------------------------------------+-------------+------------+
+
+
++----------------------------------------------------------------------------------------------------+
+; th                                                                                                 ;
++---------------+-------------+-----------+----------+------------------------------------+----------+
+; Minimum Slack ; Required th ; Actual th ; From     ; To                                 ; To Clock ;
++---------------+-------------+-----------+----------+------------------------------------+----------+
+; N/A           ; None        ; -3.252 ns ; PS2_CLK  ; Ps2_Module:Ps2_Init|detect_edge[0] ; CLK_20M  ;
+; N/A           ; None        ; -3.485 ns ; PS2_DATA ; Ps2_Module:Ps2_Init|bit_shift[10]  ; CLK_20M  ;
++---------------+-------------+-----------+----------+------------------------------------+----------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Classic Timing Analyzer
+    Info: Version 9.0 Build 132 02/25/2009 SJ Full Version
+    Info: Processing started: Sun Feb 20 19:38:02 2011
+Info: Command: quartus_tan --read_settings_files=off --write_settings_files=off ps2_lcd1602 -c ps2_lcd1602 --timing_analysis_only
+Info: Parallel compilation is enabled and will use 2 of the 2 processors detected
+Warning: Found pins functioning as undefined clocks and/or memory enables
+    Info: Assuming node "CLK_20M" is an undefined clock
+Warning: Found 1 node(s) in clock paths which may be acting as ripple and/or gated clocks -- node(s) analyzed as buffer(s) resulting in clock skew
+    Info: Detected ripple clock "LCD_1602:LCD_1602_Init|LCD_CLOCK" as buffer
+Info: Clock "CLK_20M" has Internal fmax of 102.46 MHz between source register "Ps2_Module:Ps2_Init|o_ps2_data[5]" and destination register "LCD_1602:LCD_1602_Init|LCD_DATA[0]~en" (period= 9.76 ns)
+    Info: + Longest register to register delay is 11.594 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X20_Y8_N23; Fanout = 11; REG Node = 'Ps2_Module:Ps2_Init|o_ps2_data[5]'
+        Info: 2: + IC(0.542 ns) + CELL(0.438 ns) = 0.980 ns; Loc. = LCCOMB_X20_Y8_N30; Fanout = 16; COMB Node = 'LCD_1602:LCD_1602_Init|Equal2~2'
+        Info: 3: + IC(0.463 ns) + CELL(0.410 ns) = 1.853 ns; Loc. = LCCOMB_X20_Y8_N0; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|Equal7~1'
+        Info: 4: + IC(0.252 ns) + CELL(0.371 ns) = 2.476 ns; Loc. = LCCOMB_X20_Y8_N14; Fanout = 3; COMB Node = 'LCD_1602:LCD_1602_Init|WideOr5~2'
+        Info: 5: + IC(0.749 ns) + CELL(0.150 ns) = 3.375 ns; Loc. = LCCOMB_X20_Y7_N0; Fanout = 5; COMB Node = 'LCD_1602:LCD_1602_Init|always6~15'
+        Info: 6: + IC(0.250 ns) + CELL(0.150 ns) = 3.775 ns; Loc. = LCCOMB_X20_Y7_N10; Fanout = 3; COMB Node = 'LCD_1602:LCD_1602_Init|always6~189'
+        Info: 7: + IC(0.253 ns) + CELL(0.150 ns) = 4.178 ns; Loc. = LCCOMB_X20_Y7_N12; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|always6~190'
+        Info: 8: + IC(0.262 ns) + CELL(0.150 ns) = 4.590 ns; Loc. = LCCOMB_X20_Y7_N6; Fanout = 3; COMB Node = 'LCD_1602:LCD_1602_Init|always6~191'
+        Info: 9: + IC(0.255 ns) + CELL(0.150 ns) = 4.995 ns; Loc. = LCCOMB_X20_Y7_N28; Fanout = 2; COMB Node = 'LCD_1602:LCD_1602_Init|always6~217'
+        Info: 10: + IC(0.265 ns) + CELL(0.150 ns) = 5.410 ns; Loc. = LCCOMB_X20_Y7_N30; Fanout = 3; COMB Node = 'LCD_1602:LCD_1602_Init|always6~218'
+        Info: 11: + IC(0.268 ns) + CELL(0.150 ns) = 5.828 ns; Loc. = LCCOMB_X20_Y7_N8; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|always6~192'
+        Info: 12: + IC(0.263 ns) + CELL(0.275 ns) = 6.366 ns; Loc. = LCCOMB_X20_Y7_N26; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|always6~193'
+        Info: 13: + IC(0.272 ns) + CELL(0.150 ns) = 6.788 ns; Loc. = LCCOMB_X20_Y7_N20; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|always6~194'
+        Info: 14: + IC(0.267 ns) + CELL(0.275 ns) = 7.330 ns; Loc. = LCCOMB_X20_Y7_N18; Fanout = 2; COMB Node = 'LCD_1602:LCD_1602_Init|always6~202'
+        Info: 15: + IC(0.679 ns) + CELL(0.150 ns) = 8.159 ns; Loc. = LCCOMB_X17_Y7_N28; Fanout = 3; COMB Node = 'LCD_1602:LCD_1602_Init|always6~203'
+        Info: 16: + IC(0.263 ns) + CELL(0.150 ns) = 8.572 ns; Loc. = LCCOMB_X17_Y7_N2; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|always6~205'
+        Info: 17: + IC(0.282 ns) + CELL(0.150 ns) = 9.004 ns; Loc. = LCCOMB_X17_Y7_N20; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|always6~206'
+        Info: 18: + IC(0.459 ns) + CELL(0.275 ns) = 9.738 ns; Loc. = LCCOMB_X18_Y7_N20; Fanout = 2; COMB Node = 'LCD_1602:LCD_1602_Init|WideOr25~0'
+        Info: 19: + IC(0.265 ns) + CELL(0.242 ns) = 10.245 ns; Loc. = LCCOMB_X18_Y7_N18; Fanout = 17; COMB Node = 'LCD_1602:LCD_1602_Init|Selector37~0'
+        Info: 20: + IC(0.689 ns) + CELL(0.660 ns) = 11.594 ns; Loc. = LCFF_X17_Y8_N9; Fanout = 1; REG Node = 'LCD_1602:LCD_1602_Init|LCD_DATA[0]~en'
+        Info: Total cell delay = 4.596 ns ( 39.64 % )
+        Info: Total interconnect delay = 6.998 ns ( 60.36 % )
+    Info: - Smallest clock skew is 2.048 ns
+        Info: + Shortest clock path from clock "CLK_20M" to destination register is 4.404 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_17; Fanout = 2; CLK Node = 'CLK_20M'
+            Info: 2: + IC(0.550 ns) + CELL(0.787 ns) = 2.326 ns; Loc. = LCFF_X3_Y6_N21; Fanout = 3; REG Node = 'LCD_1602:LCD_1602_Init|LCD_CLOCK'
+            Info: 3: + IC(0.835 ns) + CELL(0.000 ns) = 3.161 ns; Loc. = CLKCTRL_G1; Fanout = 69; COMB Node = 'LCD_1602:LCD_1602_Init|LCD_CLOCK~clkctrl'
+            Info: 4: + IC(0.706 ns) + CELL(0.537 ns) = 4.404 ns; Loc. = LCFF_X17_Y8_N9; Fanout = 1; REG Node = 'LCD_1602:LCD_1602_Init|LCD_DATA[0]~en'
+            Info: Total cell delay = 2.313 ns ( 52.52 % )
+            Info: Total interconnect delay = 2.091 ns ( 47.48 % )
+        Info: - Longest clock path from clock "CLK_20M" to source register is 2.356 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_17; Fanout = 2; CLK Node = 'CLK_20M'
+            Info: 2: + IC(0.122 ns) + CELL(0.000 ns) = 1.111 ns; Loc. = CLKCTRL_G2; Fanout = 109; COMB Node = 'CLK_20M~clkctrl'
+            Info: 3: + IC(0.708 ns) + CELL(0.537 ns) = 2.356 ns; Loc. = LCFF_X20_Y8_N23; Fanout = 11; REG Node = 'Ps2_Module:Ps2_Init|o_ps2_data[5]'
+            Info: Total cell delay = 1.526 ns ( 64.77 % )
+            Info: Total interconnect delay = 0.830 ns ( 35.23 % )
+    Info: + Micro clock to output delay of source is 0.250 ns
+    Info: + Micro setup delay of destination is -0.036 ns
+Warning: Circuit may not operate. Detected 50 non-operational path(s) clocked by clock "CLK_20M" with clock skew larger than data delay. See Compilation Report for details.
+Info: Found hold time violation between source  pin or register "Ps2_Module:Ps2_Init|o_ps2_data[4]" and destination pin or register "LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111" for clock "CLK_20M" (Hold time is 1.161 ns)
+    Info: + Largest clock skew is 2.050 ns
+        Info: + Longest clock path from clock "CLK_20M" to destination register is 4.406 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_17; Fanout = 2; CLK Node = 'CLK_20M'
+            Info: 2: + IC(0.550 ns) + CELL(0.787 ns) = 2.326 ns; Loc. = LCFF_X3_Y6_N21; Fanout = 3; REG Node = 'LCD_1602:LCD_1602_Init|LCD_CLOCK'
+            Info: 3: + IC(0.835 ns) + CELL(0.000 ns) = 3.161 ns; Loc. = CLKCTRL_G1; Fanout = 69; COMB Node = 'LCD_1602:LCD_1602_Init|LCD_CLOCK~clkctrl'
+            Info: 4: + IC(0.708 ns) + CELL(0.537 ns) = 4.406 ns; Loc. = LCFF_X20_Y8_N1; Fanout = 1; REG Node = 'LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111'
+            Info: Total cell delay = 2.313 ns ( 52.50 % )
+            Info: Total interconnect delay = 2.093 ns ( 47.50 % )
+        Info: - Shortest clock path from clock "CLK_20M" to source register is 2.356 ns
+            Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_17; Fanout = 2; CLK Node = 'CLK_20M'
+            Info: 2: + IC(0.122 ns) + CELL(0.000 ns) = 1.111 ns; Loc. = CLKCTRL_G2; Fanout = 109; COMB Node = 'CLK_20M~clkctrl'
+            Info: 3: + IC(0.708 ns) + CELL(0.537 ns) = 2.356 ns; Loc. = LCFF_X20_Y8_N5; Fanout = 36; REG Node = 'Ps2_Module:Ps2_Init|o_ps2_data[4]'
+            Info: Total cell delay = 1.526 ns ( 64.77 % )
+            Info: Total interconnect delay = 0.830 ns ( 35.23 % )
+    Info: - Micro clock to output delay of source is 0.250 ns
+    Info: - Shortest register to register delay is 0.905 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X20_Y8_N5; Fanout = 36; REG Node = 'Ps2_Module:Ps2_Init|o_ps2_data[4]'
+        Info: 2: + IC(0.546 ns) + CELL(0.275 ns) = 0.821 ns; Loc. = LCCOMB_X20_Y8_N0; Fanout = 4; COMB Node = 'LCD_1602:LCD_1602_Init|Equal7~1'
+        Info: 3: + IC(0.000 ns) + CELL(0.084 ns) = 0.905 ns; Loc. = LCFF_X20_Y8_N1; Fanout = 1; REG Node = 'LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111'
+        Info: Total cell delay = 0.359 ns ( 39.67 % )
+        Info: Total interconnect delay = 0.546 ns ( 60.33 % )
+    Info: + Micro hold delay of destination is 0.266 ns
+Info: tsu for register "Ps2_Module:Ps2_Init|bit_shift[10]" (data pin = "PS2_DATA", clock pin = "CLK_20M") is 3.715 ns
+    Info: + Longest pin to register delay is 6.116 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.842 ns) = 0.842 ns; Loc. = PIN_96; Fanout = 1; PIN Node = 'PS2_DATA'
+        Info: 2: + IC(4.945 ns) + CELL(0.245 ns) = 6.032 ns; Loc. = LCCOMB_X22_Y9_N6; Fanout = 1; COMB Node = 'Ps2_Module:Ps2_Init|bit_shift[10]~feeder'
+        Info: 3: + IC(0.000 ns) + CELL(0.084 ns) = 6.116 ns; Loc. = LCFF_X22_Y9_N7; Fanout = 1; REG Node = 'Ps2_Module:Ps2_Init|bit_shift[10]'
+        Info: Total cell delay = 1.171 ns ( 19.15 % )
+        Info: Total interconnect delay = 4.945 ns ( 80.85 % )
+    Info: + Micro setup delay of destination is -0.036 ns
+    Info: - Shortest clock path from clock "CLK_20M" to destination register is 2.365 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_17; Fanout = 2; CLK Node = 'CLK_20M'
+        Info: 2: + IC(0.122 ns) + CELL(0.000 ns) = 1.111 ns; Loc. = CLKCTRL_G2; Fanout = 109; COMB Node = 'CLK_20M~clkctrl'
+        Info: 3: + IC(0.717 ns) + CELL(0.537 ns) = 2.365 ns; Loc. = LCFF_X22_Y9_N7; Fanout = 1; REG Node = 'Ps2_Module:Ps2_Init|bit_shift[10]'
+        Info: Total cell delay = 1.526 ns ( 64.52 % )
+        Info: Total interconnect delay = 0.839 ns ( 35.48 % )
+Info: tco from clock "CLK_20M" to destination pin "LCD_DATA[1]" through register "LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0" is 9.291 ns
+    Info: + Longest clock path from clock "CLK_20M" to source register is 4.404 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_17; Fanout = 2; CLK Node = 'CLK_20M'
+        Info: 2: + IC(0.550 ns) + CELL(0.787 ns) = 2.326 ns; Loc. = LCFF_X3_Y6_N21; Fanout = 3; REG Node = 'LCD_1602:LCD_1602_Init|LCD_CLOCK'
+        Info: 3: + IC(0.835 ns) + CELL(0.000 ns) = 3.161 ns; Loc. = CLKCTRL_G1; Fanout = 69; COMB Node = 'LCD_1602:LCD_1602_Init|LCD_CLOCK~clkctrl'
+        Info: 4: + IC(0.706 ns) + CELL(0.537 ns) = 4.404 ns; Loc. = LCFF_X17_Y8_N11; Fanout = 1; REG Node = 'LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0'
+        Info: Total cell delay = 2.313 ns ( 52.52 % )
+        Info: Total interconnect delay = 2.091 ns ( 47.48 % )
+    Info: + Micro clock to output delay of source is 0.250 ns
+    Info: + Longest register to pin delay is 4.637 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X17_Y8_N11; Fanout = 1; REG Node = 'LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0'
+        Info: 2: + IC(1.849 ns) + CELL(2.788 ns) = 4.637 ns; Loc. = PIN_57; Fanout = 0; PIN Node = 'LCD_DATA[1]'
+        Info: Total cell delay = 2.788 ns ( 60.13 % )
+        Info: Total interconnect delay = 1.849 ns ( 39.87 % )
+Info: th for register "Ps2_Module:Ps2_Init|detect_edge[0]" (data pin = "PS2_CLK", clock pin = "CLK_20M") is -3.252 ns
+    Info: + Longest clock path from clock "CLK_20M" to destination register is 2.370 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_17; Fanout = 2; CLK Node = 'CLK_20M'
+        Info: 2: + IC(0.122 ns) + CELL(0.000 ns) = 1.111 ns; Loc. = CLKCTRL_G2; Fanout = 109; COMB Node = 'CLK_20M~clkctrl'
+        Info: 3: + IC(0.722 ns) + CELL(0.537 ns) = 2.370 ns; Loc. = LCFF_X26_Y9_N3; Fanout = 2; REG Node = 'Ps2_Module:Ps2_Init|detect_edge[0]'
+        Info: Total cell delay = 1.526 ns ( 64.39 % )
+        Info: Total interconnect delay = 0.844 ns ( 35.61 % )
+    Info: + Micro hold delay of destination is 0.266 ns
+    Info: - Shortest pin to register delay is 5.888 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.842 ns) = 0.842 ns; Loc. = PIN_97; Fanout = 1; PIN Node = 'PS2_CLK'
+        Info: 2: + IC(4.687 ns) + CELL(0.275 ns) = 5.804 ns; Loc. = LCCOMB_X26_Y9_N2; Fanout = 1; COMB Node = 'Ps2_Module:Ps2_Init|detect_edge[0]~0'
+        Info: 3: + IC(0.000 ns) + CELL(0.084 ns) = 5.888 ns; Loc. = LCFF_X26_Y9_N3; Fanout = 2; REG Node = 'Ps2_Module:Ps2_Init|detect_edge[0]'
+        Info: Total cell delay = 1.201 ns ( 20.40 % )
+        Info: Total interconnect delay = 4.687 ns ( 79.60 % )
+Info: Quartus II Classic Timing Analyzer was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 138 megabytes
+    Info: Processing ended: Sun Feb 20 19:38:03 2011
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
+
+

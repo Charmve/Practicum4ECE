@@ -1,0 +1,247 @@
+C51 COMPILER V9.57.0.0   MAIN                                                              12/29/2018 11:59:08 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Software\Keil_C51\C51\BIN\C51.EXE main.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYSTEM;..\HARD
+                    -WARE;..\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include  "config.h"
+   2          #include  "Serial.h"//串口1(P3.0/RxD, P3.1/TxD)
+   3          #include <myself.h>
+   4          #include  "AD.h"
+   5          #include "stdio.h"
+   6          #include "math.h"
+   7          #include "oled.h"
+   8          #include "AnoTc.h"
+   9          #include "PWM.h"
+  10          
+  11          #define A1 P16 
+  12          #define A2 P15 
+  13          #define PWM P25 
+  14          #define En P17 
+  15          #define EC1 P31 
+  16          #define EC2 P32
+  17          
+  18          /**************************************************************
+  19          （一）题目 1：直流电机控制系统 
+  20          
+  21            1、焊接电机控制电路板，调试后电路功能正常； （30 分） 
+  22            2、可以通过 5 向按键左右控制电机正反转、侧向按键控制电机启动/
+  23            停止； （10 分）
+  24            3、通过旋纽电阻控制电机转速或角度（可二选一）；（20 分） 
+  25            4、相关电机转速或角度，转动方向信息在 LCD1602 或 OLED 上显
+  26            示； （20 分） 
+  27            5、通过 PID 调节，通过旋纽控制转速或转动角度（可二选一），数
+  28            据通过串口，在电脑上显示曲线（可借助匿名地面站工具），相应的
+  29            在显示器上显示目标转速或角度。 （15 分） 
+  30            6、其他。 （5 分）
+  31          **************************************************************/
+  32          
+  33          //unsigned int xdata aimspeed=0, last_speed = 0;
+  34          //extern unsigned int xdata CSpeed;  //电机当前的速度 每0.5秒测一次
+  35          
+  36          
+  37          void IncPIDCalc1(unsigned int AimSpeed,unsigned int Current)
+  38          { 
+  39   1        static double ek = 0;//当前误差
+  40   1        static double ek1 = 0,ek2 = 0; //
+  41   1        static double Pwm = 0; 
+  42   1        float Kp = 1.312, Ki = 0.0001, Kd = 0; //上一次最好情况的参数  1.323
+  43   1        //double Kp = 1.312, Ki = 0.0001, Kd = 0;
+  44   1        ek = AimSpeed - Current; //增量计算
+  45   1        Pwm += Kp * (ek - ek1) //E[k]项
+  46   1                +Ki * ek //E[k-1]项                     
+  47   1                +Kd * ((ek- ek1) - (ek1-ek2)); //E[k-2]项
+  48   1        //存储误差，用于下次计算
+  49   1        ek2 = ek1;
+  50   1        ek1 = ek;
+  51   1        //返回增量值
+  52   1        
+  53   1        if(Pwm > 255) Pwm = 250;
+  54   1        if(Pwm < 0) Pwm = 5;
+C51 COMPILER V9.57.0.0   MAIN                                                              12/29/2018 11:59:08 PAGE 2   
+
+  55   1        //Test_Send_User(AimSpeed,Current,Pwm);   //AimSpeed -32
+  56   1        PWM_Set(255-Pwm);
+  57   1      }
+  58          
+  59          void main()
+  60          {
+  61   1        extern bit bS1Rec;//串口接收到数据标志
+  62   1        extern bit bFlag2ms,bFlag20ms;//2ms标志 
+  63   1        extern bit bFlagAD;//AD转换标志 
+  64   1        extern bit aFlagAD;//AD转换标志
+  65   1        extern unsigned char cS1Rec;//串口接收到字符
+  66   1        extern unsigned int cADCResult;//AD高8位
+  67   1        extern unsigned int AngADResult;   //用于读取旋钮的角度
+  68   1        extern unsigned char ch;      //ADC通道号 
+  69   1        extern bit aFlagAD;//AD转换标志
+  70   1      //  extern unsigned int xdata CSpeed;  //电机当前的速度 每0.5秒测一次
+  71   1        
+  72   1        unsigned int xdata aimspeed=0, last_speed = 0;
+  73   1        extern unsigned int xdata CSpeed;  //电机当前的速度 每0.5秒测一次
+  74   1        
+  75   1        unsigned char xdata cKeyPressNumber=0x06;
+  76   1        unsigned char* xdata cindexTemp=0;
+  77   1        unsigned int xdata current_speed = 0;
+  78   1        unsigned int ucount = 0,tcount = 0;//波形打印
+  79   1        bit motorflag = 1;
+  80   1        bit flag = 0;
+  81   1        bFlag2ms=0;bFlag20ms=0;
+  82   1        GDD = 0;
+  83   1        
+  84   1        //Beep = 0;
+  85   1        MyGPIO_Inilize();//GPIO 
+  86   1        Uart1Init();//串口1初始化
+  87   1        Timer0Init();//定时器0初始化
+  88   1        Int0Init(); //外部中断初始化
+  89   1        ADCInit(); //ADC初始化
+  90   1        Motor_Init(); //电机初始化
+  91   1        OLED_Init();  //初始化OLED    
+  92   1        MENU_oLED();  //OLED菜单显示
+  93   1        PWM_Init(0x00); 
+  94   1        //IncPIDInit();
+  95   1      
+  96   1        while(1)
+  97   1        { 
+  98   2          //读取按键值
+  99   2          if(bFlagAD==1) //2m读取一次按键AD值（五向按键和侧向按键）
+ 100   2          {
+ 101   3            bFlagAD=0;
+ 102   3            ucount++;
+ 103   3            cKeyPressNumber=Judge5DKeyNum(cADCResult);//读取按键值      
+ 104   3          } 
+ 105   2          else{}              
+ 106   2          
+ 107   2          //电子数字钟
+ 108   2          if(bFlag20ms == 0){
+ 109   3            tcount++; 
+ 110   3            OLED_ShowString(0,7,"     12/29 10:42",12);
+ 111   3      //      OLED_ShowNum(52,4,CSpeed,4,16);
+ 112   3            if(tcount>= 60) {
+ 113   4              tcount = 0;
+ 114   4              OLED_ShowString(0,7,"     12/29 10:43",12);
+ 115   4            }
+ 116   3          }
+C51 COMPILER V9.57.0.0   MAIN                                                              12/29/2018 11:59:08 PAGE 3   
+
+ 117   2          else {
+ 118   3            if (tcount == 0) OLED_ShowString(0,7,"     12/29 10 43",12);
+ 119   3            else OLED_ShowString(0,7,"     12/29 10 42",12);
+ 120   3          }
+ 121   2          
+ 122   2          //实时显示旋钮AD值
+ 123   2          if(aFlagAD == 0) 
+ 124   2          {
+ 125   3            ET0 = 0;ch = 1; //关定时器
+ 126   3            ADC_CONTR = ADC_POWER | ADC_SPEEDLL | ADC_START | ch;
+ 127   3            while(aFlagAD == 0) ;
+ 128   3                OLED_ShowNum(52,2,AngADResult,3,16);
+ 129   3                //PWM_Set(255-aimspeed);
+ 130   3                //Test_Send_User(aimspeed,CSpeed,00);
+ 131   3            //修改：根据读到的AD对应的标度作为速度的目标值
+ 132   3            ch = 0;ET0 = 1;
+ 133   3          }
+ 134   2          else{ }
+ 135   2          
+ 136   2          //每50ms调节一次PID
+ 137   2          if(ucount >= 10){  //20ms
+ 138   3            ucount = 0;
+ 139   3            current_speed = CSpeed;
+ 140   3            current_speed = (last_speed + CSpeed)/2;
+ 141   3            aimspeed = 1.3813 * AngADResult + 47.978; //线性标度目标值
+ 142   3            OLED_ShowNum(52,4,current_speed*3/2,4,16);
+ 143   3            IncPIDCalc1(aimspeed,current_speed);
+ 144   3            Test_Send_User(AngADResult,current_speed,00);   //AimSpeed -32
+ 145   3            if(!(abs(current_speed-aimspeed) <= 5))
+ 146   3            {
+ 147   4              TestLed = !TestLed; //directing the PID is runnning
+ 148   4            } 
+ 149   3            else{
+ 150   4              Beep = !Beep;
+ 151   4              //DelayNms(1000);
+ 152   4              Beep = !Beep;
+ 153   4              //DelayNms(1000);
+ 154   4            }
+ 155   3            last_speed = CSpeed;
+ 156   3          }
+ 157   2          else{}
+ 158   2          
+ 159   2          switch(cKeyPressNumber) //根据按键执行 
+ 160   2          { 
+ 161   3            case 0: //KeyStartStop 直流电机启动与停止
+ 162   3            {
+ 163   4              if(!flag)
+ 164   4              {         
+ 165   5                flag = 1;     
+ 166   5                Motor_Start();  
+ 167   5              }
+ 168   4              else{
+ 169   5                flag = 0;
+ 170   5                Motor_Stop();
+ 171   5              }  
+ 172   4              cKeyPressNumber=0x06;break;//串口发送00; 
+ 173   4            }
+ 174   3              
+ 175   3            case 1://KeyDown 向下键每次减5% 
+ 176   3            {
+ 177   4                TestLed = !TestLed;
+ 178   4                //Motor_dec();
+C51 COMPILER V9.57.0.0   MAIN                                                              12/29/2018 11:59:08 PAGE 4   
+
+ 179   4                //S1SendData(0x01);
+ 180   4                cKeyPressNumber=0x06;break;//串口发送01; 
+ 181   4            }
+ 182   3              
+ 183   3            case 2: //KeyMiddle 
+ 184   3            { 
+ 185   4                //S1SendData(0x02);                       
+ 186   4                cKeyPressNumber=0x06;break;//串口发送02; 
+ 187   4            }
+ 188   3              
+ 189   3            case 3: //KeyRight 直流电机正转
+ 190   3            {
+ 191   4                Motor_Turn(0x01); //1正转
+ 192   4                OLED_ShowCHinese(110,2,8);//正    
+ 193   4                //S1SendData(0x03);
+ 194   4                cKeyPressNumber=0x06;break;//串口发送03; 
+ 195   4            }
+ 196   3              
+ 197   3            case 4: //KeyLeft  直流电机反转
+ 198   3            {       
+ 199   4                Motor_Turn(0x00); //0 反转
+ 200   4              OLED_ShowCHinese(110,2,9);//反
+ 201   4                //S1SendData(0x04);
+ 202   4                cKeyPressNumber=0x06;break;//串口发送04; 
+ 203   4            }
+ 204   3              
+ 205   3            case 5: //KeyUp 向上键每次增5%  
+ 206   3            {
+ 207   4                Motor_add();
+ 208   4                //S1SendData(0x05);
+ 209   4                cKeyPressNumber=0x06;break;//串口发送05; 
+ 210   4            }
+ 211   3              
+ 212   3            default:// NoneKey  
+ 213   3                //S1SendData(0x06);
+ 214   3                break;
+ 215   3            } 
+ 216   2        }
+ 217   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1059    ----
+   CONSTANT SIZE    =     68    ----
+   XDATA SIZE       =     16      28
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       2
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

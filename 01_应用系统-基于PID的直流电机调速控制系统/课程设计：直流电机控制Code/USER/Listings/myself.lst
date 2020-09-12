@@ -1,0 +1,347 @@
+C51 COMPILER V9.57.0.0   MYSELF                                                            12/29/2018 11:46:42 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MYSELF
+OBJECT MODULE PLACED IN .\Objects\myself.obj
+COMPILER INVOKED BY: C:\Software\Keil_C51\C51\BIN\C51.EXE myself.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYSTEM;..\HA
+                    -RDWARE;..\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\myself.lst) TABS(2) OBJECT(.\Objects\myself.obj)
+
+line level    source
+
+   1          #include "myself.h"
+   2          #include "AD.h"
+   3          #include "Serial.h"//串口1(P3.0/RxD, P3.1/TxD)
+   4          #include "intrins.h"
+   5          #include "oled.h"
+   6          
+   7          #define A1 P16 
+   8          #define A2 P15 
+   9          #define PWM P14 
+  10          #define En P17 
+  11          
+  12          bit bFlagTimer0=0,bFlag2ms=0,bFlag20ms=0;
+  13          bit TestKeyLastTime=1;//用于保存测试按键前次状态
+  14          unsigned char Motor_count = 100;//用于电机占空比控制
+  15          unsigned char time_count = 0;
+  16          unsigned char xdata cJudgeKey=0;//用于判断按键的变量
+  17          unsigned int xdata T0Counter2ms=0,T0Counter20ms=0,T0Counter1s = 0;
+  18          unsigned char code KeyThreshold[7]={0x40,0x95,0xB6,0xC7,0xD1,0xEA,0xFF};
+  19          extern bit aFlagAD;//AD转换标志
+  20          extern unsigned char ch;      //ADC通道号
+  21          //static unsigned int xdata nroll;  //电机n转
+  22          unsigned int xdata APhra;  //A相测n转
+  23          unsigned int xdata BPhra;  //B相测n转
+  24          unsigned int xdata CSpeed;  //电机当前的速度 每0.5秒测一次
+  25          
+  26          //  键名        电压值    测量AD值      键值区间
+  27          //0 KeyStartStop  0         0x00      0x00-0x40
+  28          //1 KeyDown     1/2Vcc    0x81        0x41-0x95 
+  29          //2 KeyMiddle   2/3Vcc    0xAB-0xAC   0x96-0xB6
+  30          //3 KeyRight    3/4Vcc    0xC0-0xC1   0xB7-0xC7
+  31          //4 KeyLeft     4/5Vcc    0xCE-0xCD   0xC8-0xD1
+  32          //5 KeyUp       5/6Vcc    0xD6        0xD2-0xEA
+  33          //6 NoneKey       Vcc     0xFF        0xEB-0xFF
+  34          
+  35          //Motor_count = 100; //初始化为100
+  36          
+  37          void DelayNms(int n)//延时Nms//@11.0592MHz
+  38          {
+  39   1        int i=0;
+  40   1        for(i=0;i<n;i++) 
+  41   1          Delay1ms();
+  42   1      }
+  43          
+  44          void Delay1ms()   //@11.0592MHz
+  45          {
+  46   1        unsigned char i, j;
+  47   1      
+  48   1        _nop_();
+  49   1        _nop_();
+  50   1        _nop_();
+  51   1        i = 11;
+  52   1        j = 190;
+  53   1        do
+  54   1        {
+C51 COMPILER V9.57.0.0   MYSELF                                                            12/29/2018 11:46:42 PAGE 2   
+
+  55   2          while (--j);
+  56   2        } while (--i);
+  57   1      }
+  58          
+  59          void MENU_oLED(void)
+  60          {
+  61   1        OLED_Clear();
+  62   1        OLED_ShowCHinese(12,0,2);//直  //存放于数组 Hzk[][32]中
+  63   1        OLED_ShowCHinese(30,0,3);//流
+  64   1        OLED_ShowCHinese(48,0,4);//电
+  65   1        OLED_ShowCHinese(66,0,5);//机
+  66   1        OLED_ShowCHinese(84,0,6);//控
+  67   1        OLED_ShowCHinese(102,0,7);//制
+  68   1      
+  69   1        OLED_ShowString(0,3,"ADVal:",48);
+  70   1        
+  71   1        OLED_ShowString(1,5,"Speed:     r/s",48);
+  72   1      
+  73   1        OLED_ShowString(0,7,"     12/29 10:42",12);
+  74   1      }
+  75          
+  76          void Timer0Init(void)   //1毫秒@11.0592MHz
+  77          {
+  78   1        AUXR |= 0x80; //定时器时钟1T模式
+  79   1        TMOD &= 0xF0; //设置定时器模式
+  80   1        TL0 = 0xCD; //设置定时初值
+  81   1        TH0 = 0xD4; //设置定时初值
+  82   1        PT0 = 1;
+  83   1        TF0 = 0;  //清除TF0标志
+  84   1        TR0 = 1;  //定时器0开始计时
+  85   1        ET0 = 1;  //使能定时器0中断
+  86   1      }
+  87          
+  88          void Timer0Interrupt() interrupt 1 using 2 //定时器0的中断
+  89          {
+  90   1        T0Counter2ms++;
+  91   1        if(T0Counter2ms>=2)
+  92   1        {
+  93   2          bFlag2ms=1;
+  94   2          T0Counter2ms=0;
+  95   2          T0Counter20ms++;
+  96   2          ADC_CONTR = ADC_POWER | ADC_SPEEDHH | ADC_START | 0x00;//2ms启动一次ADC   
+  97   2          if(T0Counter20ms >= 100)
+  98   2          {
+  99   3            aFlagAD = 0;
+ 100   3            ADC_CONTR = ADC_POWER | ADC_SPEEDHH | ADC_START | 0x01;//2ms启动一次ADC
+ 101   3          }
+ 102   2          else{}
+ 103   2          
+ 104   2          if(T0Counter20ms >= 250){
+ 105   3              bFlag20ms=!bFlag20ms;
+ 106   3              T0Counter20ms=0;
+ 107   3              T0Counter1s++;
+ 108   3              //TestLed = !TestLed;     
+ 109   3            if(T0Counter1s >= 2)
+ 110   3            {
+ 111   4              CSpeed = (APhra+BPhra) / 20;  //25ms计算一次
+ 112   4              APhra = 0;BPhra = 0;
+ 113   4            }
+ 114   3          } 
+ 115   2          else{}    
+ 116   2        }
+C51 COMPILER V9.57.0.0   MYSELF                                                            12/29/2018 11:46:42 PAGE 3   
+
+ 117   1        else{}
+ 118   1      }
+ 119          
+ 120          void Int0Init(void)   //外部中断0\1（下降沿）
+ 121          {
+ 122   1          IT0 = 0;    //设置INT0的中断类型 (1:仅下降沿 0:上升沿和下降沿)
+ 123   1          EX0 = 1;    //使能INT0中断
+ 124   1          IT1 = 0;    //设置INT1的中断类型 (1:仅下降沿 0:上升沿和下降沿)
+ 125   1          EX1 = 1;    //使能INT1中断
+ 126   1          PX0 = 0;
+ 127   1          PX1 = 0;
+ 128   1          EA = 1;
+ 129   1      }
+ 130          
+ 131          //中断服务程序
+ 132          void exint0() interrupt 0   //INT0中断入口
+ 133          {
+ 134   1        APhra++; 
+ 135   1        //TestLed = !TestLed;     //将测试口取反
+ 136   1      }
+ 137          
+ 138          void exint1() interrupt 2 //INT1中断入口
+ 139          {
+ 140   1        BPhra++; 
+ 141   1        //TestLed = !TestLed;     //将测试口取反
+ 142   1      }
+ 143          
+ 144          
+ 145          bit KeyPress(bit KeyIO)
+ 146          {
+ 147   1        cJudgeKey=(cJudgeKey<<1) | KeyIO; // 判断值左移一位 ，并将当前扫描值入最低
+ 148   1        if(cJudgeKey==0x00)//按键按下，状态稳定。KeyIO按下为0，抬起为1
+ 149   1        {
+ 150   2          TestKeyLastTime=KeyIO;//记录状态
+ 151   2        }
+ 152   1        else if((cJudgeKey==0xFF) && (TestKeyLastTime!=KeyIO))//按键从按下到抬起，稳定
+ 153   1        {
+ 154   2          TestKeyLastTime=KeyIO;
+ 155   2          return 1;
+ 156   2        }     
+ 157   1        else 
+ 158   1        {
+ 159   2      
+ 160   2        }
+ 161   1        return 0;
+ 162   1      }
+ 163          
+ 164          unsigned char Judge5DKeyNum(unsigned char ADCValue)
+ 165          {
+ 166   1        static unsigned char xdata cFlag5D=0;//保存连接读入的键值
+ 167   1        static unsigned char xdata c5DkeyLastTime=0;//保存上次按键值
+ 168   1      //  static unsigned char xdata cNumLastTime=6;//记录上次确认的键值
+ 169   1        static unsigned char xdata cKeyPressNum;
+ 170   1        unsigned char c5DkeyNow=7;
+ 171   1      
+ 172   1        
+ 173   1      //  unsigned char c5DkeyNow=7;
+ 174   1      //  unsigned char i=0;
+ 175   1      //  //判断当前读入ADC对应的按键值
+ 176   1      
+ 177   1      //  思路与单个按键相似
+ 178   1        //根据AD值得到当前键值
+C51 COMPILER V9.57.0.0   MYSELF                                                            12/29/2018 11:46:42 PAGE 4   
+
+ 179   1        if(ADCValue<=KeyThreshold[0]) c5DkeyNow=0;
+ 180   1        else if (ADCValue>KeyThreshold[0] && ADCValue<=KeyThreshold[1]) c5DkeyNow=1;
+ 181   1        else if (ADCValue>KeyThreshold[1] && ADCValue<=KeyThreshold[2]) c5DkeyNow=2;
+ 182   1        else if (ADCValue>KeyThreshold[2] && ADCValue<=KeyThreshold[3]) c5DkeyNow=3;
+ 183   1        else if (ADCValue>KeyThreshold[3] && ADCValue<=KeyThreshold[4]) c5DkeyNow=4;
+ 184   1        else if (ADCValue>KeyThreshold[4] && ADCValue<=KeyThreshold[5]) c5DkeyNow=5;
+ 185   1        else  c5DkeyNow=6;
+ 186   1      
+ 187   1        //记录按键
+ 188   1        if(c5DkeyNow==6)//抬起，记录一次
+ 189   1          cFlag5D=(cFlag5D<<1)&0;//左移记录１次
+ 190   1        else if(c5DkeyNow==c5DkeyLastTime)//AD判断的键值与上次相同，
+ 191   1          cFlag5D=(cFlag5D<<1)|1;//左移记录１次
+ 192   1        else //特殊情况，本次非抬起，也与上次不同，基本不可能出现
+ 193   1          cFlag5D=(cFlag5D<<1)& 0;//左移记录１次
+ 194   1        
+ 195   1        c5DkeyLastTime=c5DkeyNow;//记录当前AD读的键值 
+ 196   1        
+ 197   1        //判断键值
+ 198   1        if(cFlag5D==0xFF)//连续8次读入一样
+ 199   1          cKeyPressNum=c5DkeyNow; //记录当前键值
+ 200   1        
+ 201   1        if(cFlag5D==0x00 && cKeyPressNum !=6 )//按键有效抬起，且前一次为有效按键
+ 202   1        {
+ 203   2          c5DkeyNow=cKeyPressNum; 
+ 204   2          cKeyPressNum=0x06;
+ 205   2          return c5DkeyNow;
+ 206   2        }
+ 207   1        else
+ 208   1          return 0x06;    
+ 209   1      }
+ 210          
+ 211          unsigned char* Hex2ASCII(long int long28Value)//8位值转化为ASCII
+ 212          {
+ 213   1        unsigned char xdata * cindexTempHex=0;
+ 214   1        char xdata i=0;
+ 215   1        
+ 216   1        for(i=7;i>=0;i=i-2)//高位在前
+ 217   1        {
+ 218   2          cindexTempHex[i]=long28Value;//利用默认数据类型转换，char为8位，取出lont int 的低8位
+ 219   2          cindexTempHex[i-1]=cindexTempHex[i]>>4;//取出8位中高4位 
+ 220   2          cindexTempHex[i]=cindexTempHex[i]-(cindexTempHex[i-1]<<4);//取出8位中的低4位
+ 221   2          long28Value=long28Value>>8;//低8位处理完毕，右移      
+ 222   2        }
+ 223   1      //  S1SendData(0xAA);   
+ 224   1        for(i=0;i<=7;i++)
+ 225   1        {
+ 226   2      
+ 227   2      //    S1SendData(cindexTempHex[i]);   
+ 228   2          if(cindexTempHex[i]<=9) cindexTempHex[i]+=0x30;//小于9转成ASCII
+ 229   2          else cindexTempHex[i]=cindexTempHex[i]+55;//大于9的数转成ASCII    
+ 230   2      //    S1SendData(cindexTempHex[i]);     
+ 231   2        }
+ 232   1        cindexTempHex[8]=0;//数组后加一个结束符
+ 233   1        return cindexTempHex;
+ 234   1      }
+ 235          
+ 236          void MyGPIO_Inilize()
+ 237          {
+ 238   1        GPIO_Inilize(GPIO_P0,GPIO_PullUp);//IO初始化//上拉准双向口
+ 239   1        GPIO_Inilize(GPIO_P1,GPIO_PullUp);//IO初始化//上拉准双向口
+ 240   1        GPIO_Inilize(GPIO_P2,GPIO_PullUp);//IO初始化//上拉准双向口
+C51 COMPILER V9.57.0.0   MYSELF                                                            12/29/2018 11:46:42 PAGE 5   
+
+ 241   1        GPIO_Inilize(GPIO_P3,GPIO_PullUp);//IO初始化//上拉准双向口
+ 242   1        GPIO_Inilize(GPIO_P4,GPIO_PullUp);//IO初始化//上拉准双向口
+ 243   1        GPIO_Inilize(GPIO_P5,GPIO_PullUp);//IO初始化//上拉准双向口
+ 244   1        GPIO_Inilize(GPIO_P5.4,GPIO_HighZ);//测试按键口浮空输入 
+ 245   1        DelayNms(1);//空调用，避免占用低128字节的Data空间
+ 246   1      }
+ 247          
+ 248          void Motor_Init(void)
+ 249          {
+ 250   1        A1 = 0;
+ 251   1        A2 = 0;
+ 252   1        En = 0;
+ 253   1      }
+ 254          
+ 255          void Motor_Start(void)
+ 256          {
+ 257   1        En = 1;
+ 258   1        A1 = 0;
+ 259   1        A2 = 1;
+ 260   1      }
+ 261          
+ 262          void Motor_Stop(void)
+ 263          {
+ 264   1        A1 = 0;
+ 265   1        A2 = 0; 
+ 266   1      }
+ 267          
+ 268          void Motor_Turn(bit n)
+ 269          {
+ 270   1        En = 1;
+ 271   1        if(n){  A1 = 0;A2 = 0;  DelayNms(200);A1 = 1; A2 = 0;}
+ 272   1        else{ A1 = 0;A2 = 0; DelayNms(200); A1 = 0; A2 = 1;}
+ 273   1      }
+ 274            
+ 275          //电机加速减速
+ 276          void Motor_add()
+ 277          {
+ 278   1        En = 1;
+ 279   1        
+ 280   1      } 
+ 281          void Motor_dec()
+ 282          {
+ 283   1        En = 1;
+ 284   1        
+ 285   1      }
+ 286          
+ 287          //void  ye(int senddate,unsigned int n,unsigned int m)
+ 288          //{
+ 289          //  if(senddate==0x02&&n==0) n++;
+ 290          //  else if(senddate==0x04&&n==1)n--;
+ 291          //  
+ 292          //   if(n==0){
+ 293          //    OLED_ShowString(0,0,"C00:",16);
+ 294          //    OLED_ShowString(0,2,"C01:",16);   
+ 295          //    OLED_ShowString(0,4,"C02:",16);
+ 296          //   }
+ 297          //    
+ 298          //  else if(n==1){    
+ 299          //    if(m==0){
+ 300          //      OLED_ShowString(0,0,"mm0:",16);
+ 301          //      OLED_ShowString(0,2,"mm1:",16);   
+ 302          //      OLED_ShowString(0,4,"mm2:",16); }
+C51 COMPILER V9.57.0.0   MYSELF                                                            12/29/2018 11:46:42 PAGE 6   
+
+ 303          //      if(m==0x02){
+ 304          //        OLED_ShowString(0,0,"km0:",16);
+ 305          //        OLED_ShowString(0,2,"km1:",16);   
+ 306          //        OLED_ShowString(0,4,"km2:",16); }
+ 307          //      else if(m==0x04){
+ 308          //        OLED_ShowString(0,0,"lm0:",16);
+ 309          //        OLED_ShowString(0,2,"lm1:",16);   
+ 310          //        OLED_ShowString(0,4,"lm2:",16); }   
+ 311          //    }
+ 312          //}
+ 313            
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1187    ----
+   CONSTANT SIZE    =     46    ----
+   XDATA SIZE       =     18      11
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      4       2
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

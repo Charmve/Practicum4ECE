@@ -1,0 +1,326 @@
+`define LINE_1 16   //the number of line 1
+`define LINE_2 32   //the number of line 1 and line 2
+
+module LCD_1602(reset,   
+                clock,   
+                LCD_DATA,
+                LCD_RW,
+                LCD_EN,
+                LCD_RS,
+					 PS2_LCD_DATA
+                //LCD_ON,
+                //LCD_BLON
+                );
+
+input reset;  //reset
+input clock;  //20MHz Clock
+
+input  [15:0] PS2_LCD_DATA;
+output [7:0]  LCD_DATA; //8-bit LCD DATA
+output LCD_RW;   //LCD Read/Write Select,0=Write,1=Read
+output LCD_EN;   //LCD Enable
+output LCD_RS;   //LCD Command/Data select,0=Command,1=Data
+//output LCD_ON;   //LCD Power ON/OFF,0=OFF,1=ON
+//output LCD_BLON; //LCD Back Light ON/OFF,0=OFF,1=ON
+
+reg LCD_RS;
+reg [7:0] LCD_DATA;
+
+//Fixed signal
+//assign LCD_ON = 1'b1;  //Power On
+//assign LCD_BLON = 1'b1;//Back Light On
+//assign LCD_RW = 1'b0;  //Because of no write,so LCD_RW signal
+                       //is always low level
+
+//---------------------------------------------------------
+//Produce 10Hz clock signal
+//---------------------------------------------------------
+
+reg LCD_CLOCK;    //10Hz Clock
+reg [21:0] count; //counter
+
+always@(posedge clock or negedge reset)
+begin
+   if(!reset)  //reset
+       begin 
+       count <= 22'd0;
+       LCD_CLOCK <= 1'b0;
+       end
+   else if(count == 249999)  //20Hz turn
+       begin
+       count <= 22'd0;
+       LCD_CLOCK <= ~LCD_CLOCK;
+       end
+   else
+       count <= count + 1'b1;  //count
+end
+
+//enable negative edge
+assign LCD_EN = LCD_CLOCK;
+//---------------------------------------------------------
+//Produce 1s clock signal
+//---------------------------------------------------------
+reg CLOCK_1s;
+reg [21:0] count_1s;
+always@(posedge clock or negedge reset)
+begin
+   if(!reset)  //reset
+       begin 
+       count_1s <= 22'd0;
+       CLOCK_1s <= 1'b0;
+       end
+   else if(count_1s == 24999999)  //20Hz turn
+       begin
+       count_1s <= 22'd0;
+       CLOCK_1s <= ~CLOCK_1s;
+       end
+   else
+       count_1s <= count_1s + 1'b1;  //count
+end
+
+//---------------------------------------------------------
+//LCD internal parameter Settings
+//---------------------------------------------------------
+
+//Set parameters 
+parameter     IDLE = 10'b00_0000_0000; //initial state
+parameter    CLEAR = 10'b00_0000_0001; //clear
+parameter   RETURN = 10'b00_0000_0010; //return home
+parameter     MODE = 10'b00_0000_0100; //entry mode set
+parameter  DISPLAY =10'b00_0000_1000;//display ON/OFF control
+parameter   SHIFT  =10'b00_0001_0000;//cursor or display shift
+parameter FUNCTION = 10'b00_0010_0000; //function set
+parameter    CGRAM = 10'b00_0100_0000; //set CGRAM address
+parameter    DDRAM = 10'b00_1000_0000; //set DDRAM address
+parameter    WRITE = 10'b01_0000_0000; //write data to RAM
+parameter     STOP = 10'b10_0000_0000; //release control
+
+reg [9:0] state; //state machine code
+reg [4:0] char_count=0;  //char counter
+reg [7:0] data_display;//display data
+reg [7:0] LcdBuf[31:0];
+reg [4:0] Flash_count=0;
+//If read,LCD_RS is high level,else is low level
+always@(posedge LCD_CLOCK or negedge reset)
+begin
+    if(!reset)
+       LCD_RS <= 1'b0;
+    else if(state == WRITE)
+       LCD_RS <= 1'b1;
+    else
+       LCD_RS <= 1'b0;
+end
+
+//State machine
+always@(posedge LCD_CLOCK or negedge reset)
+begin
+   if(!reset)
+   begin
+       state <= IDLE;
+       LCD_DATA <= 8'bzzzz_zzzz;
+       char_count <= 5'd0;
+       Flash_count <=5'd0;
+   end
+   else
+   begin
+      case(state)
+      //start
+      IDLE:begin  
+            state <= CLEAR;
+            LCD_DATA <= 8'bzzzz_zzzz;
+           end
+      //clear
+      CLEAR:begin  
+             state <= RETURN;
+             LCD_DATA <= 8'b0000_0001;
+            end 
+      //home
+      RETURN:begin  
+             state <= MODE;
+             LCD_DATA <= 8'b0000_0010;
+             end
+      //cursor move to the right
+      //display don't move
+      MODE:begin  
+             state <= DISPLAY;
+             LCD_DATA <= 8'b0000_0110;
+           end
+      //display on
+      //cursor and blinking of cursor off
+      DISPLAY:begin  
+             state <= SHIFT;
+             LCD_DATA <= 8'b0000_1100;
+              end
+      //cursor moving
+      //move to the right
+      SHIFT:begin  
+             state <= FUNCTION;
+             LCD_DATA <= 8'b0001_0100;
+            end
+      //Set interface data length(8-bit)
+      //numbers of display line(2-line)
+      //display font type(5*8 dots)
+      FUNCTION:begin
+             state <= DDRAM;
+             LCD_DATA <= 8'b0011_1000;
+               end
+      //Set DDRAM address in address counter
+      DDRAM:begin
+            if(fresh)begin
+             state <= WRITE;
+             		if(PS2_LCD_DATA_n=="-")
+					begin
+					char_count <= 16;
+					end
+
+					if(char_count<16)
+						LCD_DATA <= 8'b1000_0000+char_count;//line 1
+					else if(char_count>=16&&char_count<32)
+						LCD_DATA <= 8'b1100_0000+char_count-16;//line 2
+					else begin
+					LCD_DATA <= 8'b1000_0000;
+					char_count<=0;
+					state <= CLEAR;
+					end
+            end
+		
+            else
+            state <= DDRAM;  
+				end				
+      //Write data into internal RAM
+      WRITE:begin
+            if(PS2_LCD_DATA_n=="-")
+					begin
+					LCD_DATA <=" ";
+					end           
+			 else if(PS2_LCD_DATA_n==" ")
+            begin
+            state <= DDRAM;
+            LCD_DATA <=" ";end            
+				else
+				begin
+				state <= DDRAM;
+				LCD_DATA <=PS2_LCD_DATA_n;
+				char_count <= char_count + 1'b1;end
+
+				
+				
+            end
+      //Finish
+      STOP:state <= STOP;
+      //Other state
+      default:state <= IDLE;
+      endcase   
+   end
+end
+reg [7:0] PS2_LCD_DATA_n;
+reg [7:0] PS2_LCD_DATA_nn;
+reg fresh=0;
+
+always @(*)
+begin
+if(PS2_LCD_DATA_nn!=PS2_LCD_DATA_n)
+	fresh=1;
+	else
+	fresh=0;
+end
+
+always @(posedge LCD_CLOCK or negedge reset)
+begin
+	if(!reset)begin
+		PS2_LCD_DATA_nn<=0;
+	end
+	else
+		PS2_LCD_DATA_nn<=PS2_LCD_DATA_n;
+end
+
+always @(PS2_LCD_DATA)	
+begin
+	case(PS2_LCD_DATA)
+	16'h001c:PS2_LCD_DATA_n="A";
+	16'h0032:PS2_LCD_DATA_n="B";
+	16'h0021:PS2_LCD_DATA_n="C";
+	16'h0023:PS2_LCD_DATA_n="D";
+   16'h0024:PS2_LCD_DATA_n="E";
+   16'h002b:PS2_LCD_DATA_n="F";
+   16'h0034:PS2_LCD_DATA_n="G";
+   16'h0033:PS2_LCD_DATA_n="H";
+   16'h0043:PS2_LCD_DATA_n="I";
+   16'h003b:PS2_LCD_DATA_n="J";
+	16'h0042:PS2_LCD_DATA_n="K";
+	16'h004B:PS2_LCD_DATA_n="L";
+	16'h003A:PS2_LCD_DATA_n="M";
+	16'h0031:PS2_LCD_DATA_n="N";
+	16'h0044:PS2_LCD_DATA_n="O";
+	16'h004D:PS2_LCD_DATA_n="P";
+	16'h0015:PS2_LCD_DATA_n="Q";
+	16'h002D:PS2_LCD_DATA_n="R";
+	16'h001B:PS2_LCD_DATA_n="S";
+	16'h002C:PS2_LCD_DATA_n="T";
+	16'h003C:PS2_LCD_DATA_n="U";
+	16'h002A:PS2_LCD_DATA_n="V";
+	16'h001D:PS2_LCD_DATA_n="W";
+	16'h0022:PS2_LCD_DATA_n="X";
+	16'h0035:PS2_LCD_DATA_n="Y";
+	16'h001A:PS2_LCD_DATA_n="Z";
+	
+	16'h005a:PS2_LCD_DATA_n="-";
+	16'h005a:PS2_LCD_DATA_n=" ";
+
+	
+	16'h0045:PS2_LCD_DATA_n="0";
+	16'h0016:PS2_LCD_DATA_n="1";
+	16'h001E:PS2_LCD_DATA_n="2";
+	16'h0026:PS2_LCD_DATA_n="3";
+	16'h0025:PS2_LCD_DATA_n="4";
+	16'h002E:PS2_LCD_DATA_n="5";
+	16'h0036:PS2_LCD_DATA_n="6";
+	16'h003D:PS2_LCD_DATA_n="7";
+	16'h003E:PS2_LCD_DATA_n="8";
+	16'h0046:PS2_LCD_DATA_n="9";
+	
+   default: PS2_LCD_DATA_n="*";
+	endcase
+end
+
+
+//---------------------------------------------------------
+//the data buf
+//---------------------------------------------------------
+always@(char_count)
+begin
+LcdBuf[0]<="Y";
+LcdBuf[1]<="Z";
+LcdBuf[2]<="U";
+LcdBuf[3]<=":";
+LcdBuf[4]<="c";
+LcdBuf[5]<="l";
+LcdBuf[6]<="o";
+LcdBuf[7]<="c";
+LcdBuf[8]<="k";
+LcdBuf[9]<=" ";
+LcdBuf[10]<=" ";
+LcdBuf[11]<=" ";
+LcdBuf[12]<=" ";
+LcdBuf[13]<=" ";
+LcdBuf[14]<=" ";
+LcdBuf[15]<=" ";
+LcdBuf[16]<="1";
+LcdBuf[17]<="7";
+LcdBuf[18]<=":";
+LcdBuf[19]<="2";
+LcdBuf[20]<="8";
+LcdBuf[21]<="*";
+LcdBuf[22]<="*";
+LcdBuf[23]<=" ";
+LcdBuf[24]<=" ";
+LcdBuf[25]<=";";
+LcdBuf[26]<="+";
+LcdBuf[28]<="-";
+LcdBuf[29]<="*";
+LcdBuf[30]<="/";
+LcdBuf[31]<="#";
+
+end
+
+endmodule

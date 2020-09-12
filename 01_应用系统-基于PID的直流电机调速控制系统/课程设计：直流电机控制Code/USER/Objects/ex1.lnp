@@ -1,0 +1,11 @@
+".\Objects\main.obj",
+".\Objects\myself.obj",
+".\Objects\GPIO.obj",
+".\Objects\Serial.obj",
+".\Objects\AD.obj",
+".\Objects\IIC.obj",
+".\Objects\AnoTc.obj",
+".\Objects\oled.obj",
+".\Objects\PWM.obj" 
+TO ".\Objects\ex1" 
+PRINT(".\Listings\ex1.m51") RAMSIZE(256) 

@@ -1,0 +1,284 @@
+C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 10:48:52 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN Main.OBJ
+COMPILER INVOKED BY: F:\KeilMDK\C51\BIN\C51.EXE Main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /*
+   2           * TCS3200Ä£¿é
+   3           * 
+   4           * ÓÃÍ¾£ºTCS3200ÑÕÉ«²âÊÔ,¶ÁÈ¡RGBÖµ,LCD1602ÏÔÊ¾R,G,BÖµ
+   5           * 
+   6           * ×÷Õß         ÈÕÆÚ        ±¸×¢
+   7           * Huafeng Lin      2010/12/10      ÐÂÔö
+   8           * Huafeng Lin      2010/12/11      ÐÞ¸Ä
+   9           * 
+  10           */
+  11          
+  12          //½ÓÏßËµÃ÷£º
+  13          //Ä£¿éS2-----µ¥Æ¬»úP1.1
+  14          //Ä£¿éS3-----µ¥Æ¬»úP1.0
+  15          //Ä£¿éOUT----µ¥Æ¬»úP3.5(¼ÆÊýÆ÷1ÊäÈë)
+  16          //Ä£¿éVCC----µ¥Æ¬»úVCC
+  17          //Ä£¿éGND----µ¥Æ¬»úGND
+  18          
+  19          #include<REG52.H> 
+  20          #include<math.h>       //Keil library  
+  21          #include<stdio.h>      //Keil library 
+  22          #include<INTRINS.H>
+  23          
+  24          #define uchar unsigned char
+  25          #define uint  unsigned int  
+  26          #define DataPort P2    //LCD1602 Êý¾Ý¶Ë¿Ú
+  27            
+  28          sbit    LCM_RS=P0^2;   //LCD1602 ¿ØÖÆ¶Ë¿Ú   
+  29          sbit    LCM_RW=P0^1;   //LCD1602 ¿ØÖÆ¶Ë¿Ú 
+  30          sbit    LCM_EN=P0^0;   //LCD1602 ¿ØÖÆ¶Ë¿Ú
+  31          
+  32          /**Òý½Å¶¨Òå**/  
+  33          sbit s2=P1^1;        //TCS3200 S2 
+  34          sbit s3=P1^0;        //TCS3200 S3
+  35                               //TCS3200 S0 Ä£¿éÄÚ²¿Ä¬ÈÏÉÏÀ­
+  36                               //TCS3200 S1 Ä£¿éÄÚ²¿Ä¬ÈÏÉÏÀ­
+  37                               //TCS3200 OE Ä£¿éÄÚ²¿½ÓµØ
+  38          sbit test_pin=P1^2;  //ÓÃÊ¾²¨Æ÷¿´Õâ¸öÒý½Å£¬¿ÉÖªµÀ¶¨Ê±Æ÷ÖÐ¶ÏÆµÂÊ
+  39          //±äÁ¿¡¢³£Á¿¶¨Òå
+  40          uchar ge,shi,bai ;
+  41          uchar rp=3,gp=3,bp=6; //¶¨Òå±ÈÀýÒò×Ó£¬¾ßÌå»·¾³¿ÉÒÔÐÞ¸Ä
+  42          uchar count;          //ÑÕÉ«±êÖ¾Î»£¨0:ºì 1:ÂÌ 2:À¶£©
+  43          
+  44          //ÏÔÊ¾Êý×é
+  45          uchar disp_R[3];  //ºì
+  46          uchar disp_G[3];  //ÂÌ
+  47          uchar disp_B[3];  //À¶
+  48          
+  49          //********¶¨Òåº¯Êý*****************************
+  50          void    delay(unsigned int k);
+  51          void    InitLcd();
+  52          void    WriteDataLCM(uchar dataW);
+  53          void    WriteCommandLCM(uchar CMD,uchar Attribc);
+  54          void    DisplayOneChar(uchar X,uchar Y,uchar DData);
+  55          
+C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 10:48:52 PAGE 2   
+
+  56          //*********LCD1602³õÊ¼»¯**********************
+  57          void InitLcd()        
+  58          {     
+  59   1        WriteCommandLCM(0x38,1);  
+  60   1        WriteCommandLCM(0x08,1);  
+  61   1        WriteCommandLCM(0x01,1);
+  62   1        WriteCommandLCM(0x06,1);  
+  63   1        WriteCommandLCM(0x0c,1);
+  64   1      }
+  65          
+  66          //**********¼ì²âÃ¦ÐÅºÅ************************
+  67          void WaitForEnable(void)  
+  68          {         
+  69   1        DataPort=0xff;    
+  70   1        LCM_RS=0;LCM_RW=1;_nop_();
+  71   1        LCM_EN=1;_nop_();_nop_();
+  72   1        while(DataPort&0x80); 
+  73   1        LCM_EN=0;       
+  74   1      }
+  75                    
+  76          //**********Ð´ÃüÁîÖÁLCD***********************
+  77          void WriteCommandLCM(uchar CMD,uchar Attribc)
+  78          {         
+  79   1        if(Attribc)WaitForEnable(); 
+  80   1        LCM_RS=0;LCM_RW=0;_nop_();
+  81   1        DataPort=CMD;_nop_(); 
+  82   1        LCM_EN=1;_nop_();_nop_();LCM_EN=0;
+  83   1      } 
+  84                  
+  85          //**********Ð´Êý¾ÝÖÁLCD************************
+  86          void WriteDataLCM(uchar dataW)
+  87          {         
+  88   1        WaitForEnable();    
+  89   1        LCM_RS=1;LCM_RW=0;_nop_();
+  90   1        DataPort=dataW;_nop_(); 
+  91   1        LCM_EN=1;_nop_();_nop_();LCM_EN=0;
+  92   1      }
+  93                    
+  94          //*********Ð´Ò»¸ö×Ö·ûÊý¾Ýµ½Ö¸¶¨µÄÄ¿±ê***********
+  95          void DisplayOneChar(uchar X,uchar Y,uchar DData)
+  96          {           
+  97   1        Y&=1;           
+  98   1        X&=15;            
+  99   1        if(Y)X|=0x40;         
+ 100   1        X|=0x80;      
+ 101   1        WriteCommandLCM(X,0);   
+ 102   1        WriteDataLCM(DData);    
+ 103   1      }
+ 104          
+ 105          //**********ÑÓÊ±º¯Êý***************
+ 106          void delay(unsigned int k)  
+ 107          {           
+ 108   1        unsigned int i,j;       
+ 109   1        for(i=0;i<k;i++)
+ 110   1        {     
+ 111   2          for(j=0;j<121;j++)      
+ 112   2          {;}
+ 113   2        }           
+ 114   1      }                       
+ 115          
+ 116          /*******************************************
+ 117          * º¯ÊýÃû³Æ: t0_init()
+C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 10:48:52 PAGE 3   
+
+ 118          * º¯Êý¹¦ÄÜ: ¶¨Ê±Æ÷0³õÊ¼»¯
+ 119          * Èë¿Ú²ÎÊý: ÎÞ
+ 120          * ³ö¿Ú²ÎÊý: ÎÞ
+ 121          /********************************************/
+ 122          void t0_init()
+ 123          {
+ 124   1        TMOD=0x51;        //T1¼ÆÊý T0¶¨Ê± ¹¤×÷·½Ê½1
+ 125   1        
+ 126   1        TH1=0x00;        //¼ÆÊý³õÖµ
+ 127   1        TL1=0x00;
+ 128   1        
+ 129   1        TH0=0xE0;
+ 130   1        TL0=0x00;        //11¡£0592M ¾§Õñ10ms
+ 131   1        EA=1;            //¿ªÖÐ¶Ï
+ 132   1        
+ 133   1        ET0=1;        
+ 134   1        TR0=1;           //Æô¶¯
+ 135   1        TR1=1;
+ 136   1      }
+ 137          
+ 138          //*********************************************
+ 139          //ÊýÖµ×ª»»³ö¸öÊ®°ÙÇ§µÄASCIIÂë
+ 140          //*********************************************
+ 141          void conversion(uint temp_data)  
+ 142          {  
+ 143   1          bai=temp_data/100+0x30 ;
+ 144   1          temp_data=temp_data%100;   //È¡ÓàÔËËã
+ 145   1          shi=temp_data/10+0x30 ;
+ 146   1          ge=temp_data%10+0x30;      //È¡ÓàÔËËã
+ 147   1      }
+ 148          
+ 149          /*******************************************
+ 150          * º¯ÊýÃû³Æ: main()
+ 151          /********************************************/
+ 152          void main()
+ 153          {
+ 154   1        delay(10); 
+ 155   1        InitLcd();      //lcd³õÊ¼»¯
+ 156   1        s2=0;           //³õÊ¼Éè¶¨S2Òý½Å
+ 157   1        s3=0;           //³õÊ¼Éè¶¨S3Òý½Å
+ 158   1        t0_init();      //¶¨Ê±¼ÆÊý³õÊ¹¯
+ 159   1      
+ 160   1        while(1)
+ 161   1        {
+ 162   2          DisplayOneChar(0, 0, 'T');
+ 163   2          DisplayOneChar(1, 0, 'C');
+ 164   2          DisplayOneChar(2, 0, 'S');
+ 165   2          DisplayOneChar(3, 0, '2');
+ 166   2          DisplayOneChar(4, 0, '3');
+ 167   2          DisplayOneChar(5, 0, '0');
+ 168   2      
+ 169   2          DisplayOneChar(10, 0, 'R'); 
+ 170   2          DisplayOneChar(11, 0, '['); 
+ 171   2          DisplayOneChar(12, 0, disp_R[0]); 
+ 172   2          DisplayOneChar(13, 0, disp_R[1]); 
+ 173   2          DisplayOneChar(14, 0, disp_R[2]);
+ 174   2          DisplayOneChar(15, 0, ']'); 
+ 175   2        
+ 176   2          DisplayOneChar(0, 1, 'G'); 
+ 177   2          DisplayOneChar(1, 1, '['); 
+ 178   2          DisplayOneChar(2, 1, disp_G[0]); 
+ 179   2          DisplayOneChar(3, 1, disp_G[1]); 
+C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 10:48:52 PAGE 4   
+
+ 180   2          DisplayOneChar(4, 1, disp_G[2]);
+ 181   2          DisplayOneChar(5, 1, ']');
+ 182   2          
+ 183   2          DisplayOneChar(10, 1, 'B'); 
+ 184   2          DisplayOneChar(11, 1, '['); 
+ 185   2          DisplayOneChar(12, 1, disp_B[0]); 
+ 186   2          DisplayOneChar(13, 1, disp_B[1]); 
+ 187   2          DisplayOneChar(14, 1, disp_B[2]);
+ 188   2          DisplayOneChar(15, 1, ']');       
+ 189   2          
+ 190   2          delay(100) ;  
+ 191   2        }
+ 192   1      }
+ 193          
+ 194          /*******************************************
+ 195          * º¯ÊýÃû³Æ: c10ms_out() 
+ 196          * º¯Êý¹¦ÄÜ: ¶¨Ê±ÖÐ¶Ï0·þÎñ³ÌÐò
+ 197                      ÐÞ¸ÄÑÕÉ«±êÖ¾disp_tc£¨0:ºì 1:ÂÌ 2:À¶£©
+ 198                      ÉèÖÃS0 S1 S2 Ñ¡ÔñÂË²¨Æ÷
+ 199                      ¼ÆËãÂö³å£¬¶ÁÈ¡É«Öµ
+ 200          * Èë¿Ú²ÎÊý: ÎÞ
+ 201          * ³ö¿Ú²ÎÊý: ÎÞ
+ 202          /********************************************/
+ 203          void c10ms_out() interrupt 1
+ 204          {
+ 205   1        uint temp;
+ 206   1        test_pin=!test_pin; //²âÊÔ¶¨Ê±Æ÷ÖÐ¶ÏÆµÂÊÒý½Å£¬¿ÉÒÔÓÃÊ¾²¨Æ÷¹Û²ì
+ 207   1        TR0=0;              //¹Ø±Õ¶¨Ê±
+ 208   1        TR1=0;              //¹Ø±Õ¼ÆÊý
+ 209   1        //   count+1ÊµÏÖÏÈ¼ì²âÂÌÉ«,ÔÙ¼ì²âÀ¶É«,È»ºó¼ì²âºìÉ«,Ñ­»·¼ì²â       
+ 210   1        if(count==0)
+ 211   1        {
+ 212   2          count++;    
+ 213   2          s2=1;s3=1;             //Ñ¡ÔñÂË²¨Æ÷ÎªÂÌÉ«     
+ 214   2          
+ 215   2          temp=(8<<TH1)+TL1;    //¼ÆËãÕâ¶ÎÊ±¼äÄÚ TCS230 µÄÊä³öÂö³åÊý  
+ 216   2          temp/=rp;     
+ 217   2          conversion(temp);
+ 218   2          disp_R[2]=ge;         //ÒòÎªÕâ´ÎµÄÖÐ¶Ï£¬ÊÇÉÏ´ÎÑ¡ÔñÂË²¨Æ÷µÄÊýÖµ
+ 219   2          disp_R[1]=shi;
+ 220   2          disp_R[0]=bai;
+ 221   2        } 
+ 222   1        else if(count==1)
+ 223   1        {            
+ 224   2          count++;
+ 225   2          s2=1;s3=0;            //Ñ¡ÔñÂË²¨Æ÷ÎªÀ¶É«
+ 226   2          temp=(8<<TH1)+TL1;    //¼ÆËãÕâ¶ÎÊ±¼äÄÚ TCS230 µÄÊä³öÂö³åÊý  
+ 227   2          temp/=gp;     
+ 228   2          conversion(temp);
+ 229   2          disp_G[2]=ge;         //ÒòÎªÕâ´ÎµÄÖÐ¶Ï£¬ÊÇÉÏ´ÎÑ¡ÔñÂË²¨Æ÷µÄÊýÖµ
+ 230   2          disp_G[1]=shi;
+ 231   2          disp_G[0]=bai;
+ 232   2        } 
+ 233   1        else if(count==2)
+ 234   1        {            
+ 235   2          count=0;
+ 236   2          s2=0;s3=0;            //Ñ¡ÔñÂË²¨Æ÷ÎªºìÉ«
+ 237   2          
+ 238   2          temp=(8<<TH1)+TL1;    //¼ÆËãÕâ¶ÎÊ±¼äÄÚ TCS230 µÄÊä³öÂö³åÊý  
+ 239   2          temp/=bp;   
+ 240   2          conversion(temp);
+ 241   2          disp_B[2]=ge;         //ÒòÎªÕâ´ÎµÄÖÐ¶Ï£¬ÊÇÉÏ´ÎÑ¡ÔñÂË²¨Æ÷µÄÊýÖµ
+C51 COMPILER V9.59.0.0   MAIN                                                              01/12/2019 10:48:52 PAGE 5   
+
+ 242   2          disp_B[1]=shi;
+ 243   2          disp_B[0]=bai;  
+ 244   2        }
+ 245   1        
+ 246   1        //¶¨Ê±Æ÷¼ÆÊýÆ÷ÖØ¸³³õÖµ
+ 247   1        TH0=0xE0;
+ 248   1        TL0=0x00; //11¡£0592M ¾§Õñ£¬Îª10ms
+ 249   1        TL1=0x00;//¼ÆÊýÆ÷ÇåÁã
+ 250   1        TH1=0x00;//¼ÆÊýÆ÷ÇåÁã
+ 251   1        TR0=1;   //´ò¿ª¶¨Ê±Æ÷
+ 252   1        TR1=1;   //´ò¿ª¼ÆÊýÆ÷
+ 253   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    735    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     16    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,66 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 3.715 ns
+From           : PS2_DATA
+To             : Ps2_Module:Ps2_Init|bit_shift[10]
+From Clock     : --
+To Clock       : CLK_20M
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 9.291 ns
+From           : LCD_1602:LCD_1602_Init|LCD_DATA[1]~reg0
+To             : LCD_DATA[1]
+From Clock     : CLK_20M
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : -3.252 ns
+From           : PS2_CLK
+To             : Ps2_Module:Ps2_Init|detect_edge[0]
+From Clock     : --
+To Clock       : CLK_20M
+Failed Paths   : 0
+
+Type           : Clock Setup: 'CLK_20M'
+Slack          : N/A
+Required Time  : None
+Actual Time    : 102.46 MHz ( period = 9.760 ns )
+From           : Ps2_Module:Ps2_Init|o_ps2_data[5]
+To             : LCD_1602:LCD_1602_Init|LCD_DATA[7]~en
+From Clock     : CLK_20M
+To Clock       : CLK_20M
+Failed Paths   : 0
+
+Type           : Clock Hold: 'CLK_20M'
+Slack          : Not operational: Clock Skew > Data Delay
+Required Time  : None
+Actual Time    : N/A
+From           : Ps2_Module:Ps2_Init|o_ps2_data[4]
+To             : LCD_1602:LCD_1602_Init|PS2_LCD_DATA_nn.01000111
+From Clock     : CLK_20M
+To Clock       : CLK_20M
+Failed Paths   : 50
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 50
+
+--------------------------------------------------------------------------------------
+

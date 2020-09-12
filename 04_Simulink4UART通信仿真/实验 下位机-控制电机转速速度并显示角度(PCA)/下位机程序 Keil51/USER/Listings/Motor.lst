@@ -1,0 +1,89 @@
+C51 COMPILER V9.57.0.0   MOTOR                                                             03/22/2019 10:51:37 PAGE 1   
+
+
+C51 COMPILER V9.57.0.0, COMPILATION OF MODULE MOTOR
+OBJECT MODULE PLACED IN .\Objects\Motor.obj
+COMPILER INVOKED BY: D:\KEIL\ARM\C51\BIN\C51.EXE ..\HARDWARE\Motor.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYSTEM;..\HARDWA
+                    -RE;..\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\Motor.lst) TABS(2) OBJECT(.\Objects\Motor.obj)
+
+line level    source
+
+   1          #include "Motor.h"
+   2          #include "AD.h"
+   3          
+   4          sbit enable=P2^2;  //使能
+   5          sbit A1=P2^0;   //输入控制1
+   6          sbit A2=P2^1;  //输入控制2
+   7          
+   8          unsigned int countfall;
+   9          //unsigned char speed;
+  10          //unsigned int time1;
+  11          void Motor_Init()
+  12          {
+  13   1      
+  14   1        A1=0;
+  15   1        A2=0;
+  16   1      
+  17   1      }
+  18          
+  19          void Motor_TN()
+  20          {
+  21   1        enable=1;
+  22   1        A1=1;
+  23   1        A2=0;
+  24   1      }
+  25          
+  26          void Motor_TP()
+  27          {
+  28   1        enable=1;
+  29   1        A1=0;
+  30   1        A2=1;
+  31   1      }
+  32          
+  33          void Exinit()
+  34          {
+  35   1          IT0 = 1;                        //set INT0 int type (1:Falling 0:Low level)
+  36   1          EX0 = 1;                        //enable INT0 interrupt
+  37   1         // EA = 1;                         //open global interrupt switch
+  38   1      
+  39   1      }
+  40          
+  41          void Exint0() interrupt 0           //(location at 0003H)
+  42          {
+  43   1        countfall++;    //记下降沿个数
+  44   1      }
+  45          
+  46          //void panduany(void)
+  47          //{
+  48          //    if(countfall==390)       //计到一圈，关中断，显示速度
+  49          //    {
+  50          //      EX0=0;
+  51          //      countfall=0;
+  52          //      TR0=0;
+  53          //      speed=1000/time1;
+  54          //      ang[2]=speed;
+C51 COMPILER V9.57.0.0   MOTOR                                                             03/22/2019 10:51:37 PAGE 2   
+
+  55          //    //  LCD_Write_String(0,1,tempy);//显示到液晶第二行    
+  56          //      time1=0;
+  57          //      TR0=1;
+  58          //      EX0=1;
+  59          //    } 
+  60          //}
+  61          
+  62          
+  63          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     37    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

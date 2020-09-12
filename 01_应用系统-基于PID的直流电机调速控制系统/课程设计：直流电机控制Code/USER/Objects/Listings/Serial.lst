@@ -1,0 +1,89 @@
+C51 COMPILER V9.54   SERIAL                                                                10/21/2018 19:40:27 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE SERIAL
+OBJECT MODULE PLACED IN .\Objects\Serial.obj
+COMPILER INVOKED BY: F:\keil\C51\BIN\C51.EXE ..\SYSTEM\Serial.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\SYSTEM;..\HARDWARE;..
+                    -\USER) DEBUG OBJECTEXTEND PRINT(.\Listings\Serial.lst) TABS(2) OBJECT(.\Objects\Serial.obj)
+
+line level    source
+
+   1          #include  "Serial.h"
+   2          
+   3          bit bS1TrBusy;//串口发送忙标志
+   4          bit bS1Rec;//串口接收到数据标志
+   5          unsigned char cS1Rec;//串口接收到字符
+   6          
+   7          void Uart1Init(void)    //115200bps@11.0592MHz,T2作定时器
+   8          {
+   9   1        SCON = 0x50;    //8位数据,可变波特率
+  10   1        AUXR |= 0x01;   //串口1选择定时器2为波特率发生器
+  11   1        AUXR |= 0x04;   //定时器2时钟为Fosc,即1T
+  12   1      //  T2L = 0xE8;   //设定定时初值
+  13   1      //  T2H = 0xFF;   //设定定时初值
+  14   1        T2L = (65536 - (MAIN_Fosc/4/BAUD));   //设置波特率重装值
+  15   1        T2H = (65536 - (MAIN_Fosc/4/BAUD))>>8;  
+  16   1        AUXR |= 0x10;   //启动定时器2
+  17   1        
+  18   1        
+  19   1      ////打开串口中断  
+  20   1        ES=1;           //使能串口1中断
+  21   1        EA = 1; 
+  22   1      }
+  23          
+  24          
+  25          /*----------------------------
+  26          UART 中断服务程序
+  27          -----------------------------*/ 
+  28          void Uart1Interrupt() interrupt 4 using 1
+  29          {
+  30   1        if(RI)
+  31   1        {
+  32   2          RI=0;       //清除RI位
+  33   2          cS1Rec = SBUF; //将数据读出
+  34   2          bS1Rec=1;//置接收到数据标志位   
+  35   2        }
+  36   1        if(TI)
+  37   1        {
+  38   2          TI=0;         //清除TI位
+  39   2          bS1TrBusy=0; //清忙标志
+  40   2        }
+  41   1      }
+  42          
+  43          /*----------------------------
+  44          发送串口数据
+  45          ----------------------------*/
+  46          void S1SendData(unsigned char dat)
+  47          {
+  48   1          while (bS1TrBusy);//等待前面的数据发送完成
+  49   1          bS1TrBusy = 1;
+  50   1          SBUF = dat;                 //写数据到UART数据寄存器
+  51   1      }
+  52          
+  53          
+  54          /*----------------------------
+C51 COMPILER V9.54   SERIAL                                                                10/21/2018 19:40:27 PAGE 2   
+
+  55          发送字符串
+  56          ----------------------------*/
+  57          void S1SendString(unsigned char *s)
+  58          {
+  59   1          while (*s)                  //检测字符串结束标志
+  60   1          {
+  61   2              S1SendData(*s++);         //发送当前字符
+  62   2          }
+  63   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     86    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      2    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

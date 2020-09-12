@@ -1,0 +1,44 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: TestMenu20 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSP1782.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR"Debug/" /Fp"Debug/TestMenu20.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ   /c 
+"C:\Users\Administrator\Desktop\c++\TestMenu20\TestMenu20.cpp"
+"C:\Users\Administrator\Desktop\c++\TestMenu20\TestMenu20View.cpp"
+]
+Creating command line "cl.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSP1782.tmp" 
+Creating temporary file "C:\Users\ADMINI~1\AppData\Local\Temp\RSP1783.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/TestMenu20.pdb" /debug /machine:I386 /out:"Debug/TestMenu20.exe" /pdbtype:sept 
+".\Debug\TestMenu20.obj"
+".\Debug\StdAfx.obj"
+".\Debug\MainFrm.obj"
+".\Debug\TestMenu20Doc.obj"
+".\Debug\TestMenu20View.obj"
+".\Debug\TestMenu20.res"
+]
+Creating command line "link.exe @C:\Users\ADMINI~1\AppData\Local\Temp\RSP1783.tmp"
+<h3>Output Window</h3>
+Compiling...
+TestMenu20View.cpp
+Generating Code...
+Skipping... (no relevant changes detected)
+TestMenu20.cpp
+Linking...
+Creating command line "bscmake.exe /nologo /o"Debug/TestMenu20.bsc"  ".\Debug\StdAfx.sbr" ".\Debug\TestMenu20.sbr" ".\Debug\MainFrm.sbr" ".\Debug\TestMenu20Doc.sbr" ".\Debug\TestMenu20View.sbr""
+Creating browse info file...
+<h3>Output Window</h3>
+
+
+
+<h3>Results</h3>
+TestMenu20.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
