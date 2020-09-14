@@ -26,7 +26,7 @@ Hello World！
 
 
 <br>
-<div>目前已更新课程设计项目为<div size = 3 color = lightblue>（点击链接即可查看）</div>：</div>
+目前已更新课程设计项目为<font size = 3>（点击链接即可查看）</font：
 
 <br>
 
