@@ -42,9 +42,9 @@ Hello World！
 
 &nbsp;&nbsp;&nbsp;&nbsp;🍅 5. [<font face="微软雅黑" size=5>图像处理DigitalImageProcess-ImageHandle</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍏 5.1 [<font face="微软雅黑" size=5>数字图像处理初步1：缩放、灰度、旋转、伽马矫正、24位真彩色图转8位灰度图、亮度饱和度调节、二值化处理、镜像font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%EF%BC%9A%E7%BC%A9%E6%94%BE%E3%80%81%E7%81%B0%E5%BA%A6%E3%80%81%E6%97%8B%E8%BD%AC)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍏 5.1 [<font face="微软雅黑" size=5>数字图像处理初步1：缩放、灰度、旋转、伽马矫正、24位真彩色图转8位灰度图、亮度饱和度调节、二值化处理、镜像</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%EF%BC%9A%E7%BC%A9%E6%94%BE%E3%80%81%E7%81%B0%E5%BA%A6%E3%80%81%E6%97%8B%E8%BD%AC)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍐 5.1 [<font face="微软雅黑" size=5>数字图像处理初步2：直方图均衡化、中值平滑滤波、边缘提取、锐化滤波、双线性插值、高斯模糊</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/image_handle)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍐 5.2 [<font face="微软雅黑" size=5>数字图像处理初步2：直方图均衡化、中值平滑滤波、边缘提取、锐化滤波、双线性插值、高斯模糊</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/image_handle)
 
 &nbsp;&nbsp;&nbsp;&nbsp;🍄 6. [<font face="微软雅黑" size=5>ARM-蓝牙/Wifi室内定位RoomLocation</font>](https://github.com/ChromeWei/Practicum/tree/master/06_ARM-%E5%AE%A4%E5%86%85%E5%AE%9A%E4%BD%8DRoomLocation)
 
@@ -57,7 +57,7 @@ Hello World！
 
 &nbsp;&nbsp;&nbsp;&nbsp;📚 10. [<font face="微软雅黑" size=5>基于表情分析的智能语音陪伴机器人Intelligent-Speech-Sompanion-Robot-Based-on-Sentiment-Analysis</font>](https://github.com/ChromeWei/Intelligent-Speech-Sompanion-Robot-Based-on-Sentiment-Analysis)
 
-&nbsp;&nbsp;&nbsp;&nbsp;🚀 11. [Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control](https://github.com/ChromeWei/Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control)
+&nbsp;&nbsp;&nbsp;&nbsp;🚀 11. [语音全彩12*12*12光立方Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control](https://github.com/ChromeWei/Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control)
 
 &nbsp;&nbsp;&nbsp;&nbsp;👺 12. [<font face="微软雅黑" size=5>2015年全国大学生电子设计竞赛国赛测评试题——多种波形发生器</font>](https://blog.csdn.net/Charmve/article/details/103480723)
 
@@ -67,7 +67,7 @@ Hello World！
 
 之后会将这些文章及项目程序开源在GitHub上，包括详细的项目开发所有资料：程序开发源程序、设计报告、器件清单和涉及的电路原理图。具体文件构成按照这个来[Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control](https://github.com/ChromeWei/Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control)(一个小的开发项目——语音光立方)
 
-满怀热情地在此与各位同道中人交流学习，在整个博客的编写过程中，由于时间仓促，加之个人水平有限，博客中难免有疏漏和错误之处，恳请广大读者和专家指正，作者心怀感激！
+满怀热情地在此与各位同道中人交流学习，在整个仓库的整理汇总过程中，由于时间仓促，加之个人水平有限，文章中难免有疏漏和错误之处，恳请广大读者和专家指正，作者心怀感激！
 
 <br>
 
