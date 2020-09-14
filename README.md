@@ -26,7 +26,7 @@ Hello World！
 
 
 <br>
-目前已更新课程设计项目为<font size = 3>（点击链接即可查看）</font：
+目前已更新课程设计项目为<font size = 3>（点击链接即可查看）</font>：
 
 <br>
 
