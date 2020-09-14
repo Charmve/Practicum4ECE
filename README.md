@@ -5,20 +5,20 @@
 This repository cantained my some protical project based-in-or-out my class theory, which includes basical experiment about how to transimit/receive text with each device, PID controler, MCU basical&advanced experiment, digital imagor processing respectively.
     
 <h3><a id="user-content-使用指南" class="anchor" aria-hidden="true" href="#使用指南"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>使用指南</h3>
-<p>因为本教程完全免费，但现在被一些不良商家拿去卖钱，<b> 所以我需要你先帮我点一个 star </b>，助力原创，防止更多人上当受骗，也顺便支持我一下🚀 🚀 🚀。</p>
+<p>因为本项目完全免费开源，但现在被一些不良商家拿去卖钱， <b> 所以我需要你先帮我点一个 star </b>，助力原创，防止更多人上当受骗，也顺便支持我一下🚀 🚀 🚀</p>
 
 
 ## 开篇序
 ```
 Hello World！
 ```
-在毕业学年，由于现阶段各项学习安排不那么紧密，终于抽出时间来，把我大学阶段做过的项目实践经历整理并分享给大家。一是为了加强自己的对所学内容的巩固和提炼，同时如有理解和掌握上的不足，或许也能得到各位仁人志士的帮助；二是考虑这也许能为本专业内学弟学妹们提供简单的参考，做一个知识的传递和分享。
-本博客目前阶段计划将大学阶段学到的内容按照**专业课程设计**（包括上机实验、课程设计、下学年的毕业设计等）、**竞赛项目**、**科创项目**、**小型编程项目**这四个门类进行编写。
+<p>在毕业学年，由于现阶段各项学习安排不那么紧密，终于抽出时间来，把我大学阶段做过的项目实践经历整理并分享给大家。一是为了加强自己的对所学内容的巩固和提炼，同时如有理解和掌握上的不足，或许也能得到各位仁人志士的帮助；二是考虑这也许能为本专业内学弟学妹们提供简单的参考，做一个知识的传递和分享。</p>
+<p>本项目目前阶段计划将大学阶段学到的内容按照**专业课程设计**（包括上机实验、课程设计、下学年的毕业设计等）、**竞赛项目**、**科创项目**、**小型编程项目**这四个门类进行编写。</p>
 
 
 ![项目清单](https://img-blog.csdnimg.cn/20191212173352559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)
 
-<center>CSDN博客写作内容（近段时间）</center><p>
+<div align=center>CSDN博客写作内容（近段时间）</div></p>
 
 现阶段先按照这个结构框架来写，之后有了更丰富好的内容再继续调整和/或补充。
 
@@ -26,7 +26,7 @@ Hello World！
 
 
 <br>
-<font size = 5>目前已更新课程设计项目为（点击链接即可查看）：</font>
+<font size = 5>目前已更新课程设计项目为<font size = 2>（点击链接即可查看）</font>：</font>
 
 <br>
 
@@ -42,9 +42,9 @@ Hello World！
 
 &nbsp;&nbsp;&nbsp;&nbsp;🍅 5. [<font face="微软雅黑" size=5>图像处理DigitalImageProcess-ImageHandle</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle)
 
-&nbsp;&nbsp;&nbsp;&nbsp;🍏 &nbsp;&nbsp;&nbsp;&nbsp;5.1 [<font face="微软雅黑" size=5>数字图像处理初步1：图像处理：缩放、灰度、旋转</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%EF%BC%9A%E7%BC%A9%E6%94%BE%E3%80%81%E7%81%B0%E5%BA%A6%E3%80%81%E6%97%8B%E8%BD%AC)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍏 5.1 [<font face="微软雅黑" size=5>数字图像处理初步1：缩放、灰度、旋转、伽马矫正、24位真彩色图转8位灰度图、亮度饱和度调节、二值化处理、镜像font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%EF%BC%9A%E7%BC%A9%E6%94%BE%E3%80%81%E7%81%B0%E5%BA%A6%E3%80%81%E6%97%8B%E8%BD%AC)
 
-&nbsp;&nbsp;&nbsp;&nbsp;🍐 &nbsp;&nbsp;&nbsp;&nbsp;5.1 [<font face="微软雅黑" size=5>数字图像处理初步2：直方图均衡化、中值平滑滤波、边缘提取、锐化滤波、双线性插值、高斯模糊</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/image_handle)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍐 5.1 [<font face="微软雅黑" size=5>数字图像处理初步2：直方图均衡化、中值平滑滤波、边缘提取、锐化滤波、双线性插值、高斯模糊</font>](https://github.com/ChromeWei/Practicum/tree/master/05_DigitalImageProcess-ImageHandle/image_handle)
 
 &nbsp;&nbsp;&nbsp;&nbsp;🍄 6. [<font face="微软雅黑" size=5>ARM-蓝牙/Wifi室内定位RoomLocation</font>](https://github.com/ChromeWei/Practicum/tree/master/06_ARM-%E5%AE%A4%E5%86%85%E5%AE%9A%E4%BD%8DRoomLocation)
 
