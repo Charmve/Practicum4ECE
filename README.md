@@ -54,6 +54,10 @@ Hello World！
 
 &nbsp;&nbsp;&nbsp;&nbsp;🎅 9. [<font face="微软雅黑" size=5>冬令营-AI实训代码库</font>](https://github.com/ChromeWei/Practicum/tree/master/09_%E5%86%AC%E4%BB%A4%E8%90%A5-AI%E5%AE%9E%E8%AE%AD%E4%BB%A3%E7%A0%81%E5%BA%93)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍅 9.1 [<font face="微软雅黑" size=5>目标识别1：人脸识别FaceCOMP</font>](https://github.com/ChromeWei/Practicum/tree/master/09_%E5%86%AC%E4%BB%A4%E8%90%A5-AI%E5%AE%9E%E8%AE%AD%E4%BB%A3%E7%A0%81%E5%BA%93/%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%ABFaceCOMP)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🍐 9.2 [<font face="微软雅黑" size=5>目标识别2：手写字识别Caffe</font>](https://github.com/ChromeWei/Practicum/tree/master/09_%E5%86%AC%E4%BB%A4%E8%90%A5-AI%E5%AE%9E%E8%AE%AD%E4%BB%A3%E7%A0%81%E5%BA%93/%E6%89%8B%E5%86%99%E5%AD%97%E8%AF%86%E5%88%ABCaffe)
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;📚 10. [<font face="微软雅黑" size=5>基于表情分析的智能语音陪伴机器人Intelligent-Speech-Sompanion-Robot-Based-on-Sentiment-Analysis</font>](https://github.com/ChromeWei/Intelligent-Speech-Sompanion-Robot-Based-on-Sentiment-Analysis)
 
