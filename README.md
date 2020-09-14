@@ -4,22 +4,19 @@
 
 This repository cantained my some protical project based-in-or-out my class theory, which includes basical experiment about how to transimit/receive text with each device, PID controler, MCU basical&advanced experiment, digital imagor processing respectively.
 
-  <meta name="viewport" content="width=device-width">
   
-  <title>geekxh/hello-algorithm: 🌍 东半球最酷的学习项目 | 1、我写的三十万字算法图解 2、千本开源电子书 3、100 张思维导图 4、100 篇大厂面经 5、30 个学习专题  🚀 🚀 🚀 右上角点个 star，加入我们万人学习群！English Supported！</title>
-    <meta name="description" content="🌍 东半球最酷的学习项目 | 1、我写的三十万字算法图解 2、千本开源电子书 3、100 张思维导图 4、100 篇大厂面经 5、30 个学习专题  🚀 🚀 🚀 右上角点个 star，加入我们万人学习群！English Supported！ - geekxh/hello-algorithm">
-    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
-  <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
-  <meta property="fb:app_id" content="1401488693436528">
-  <meta name="apple-itunes-app" content="app-id=1477376905">
+<title>geekxh/hello-algorithm: 🌍 东半球最酷的学习项目 | 1、我写的三十万字算法图解 2、千本开源电子书 3、100 张思维导图 4、100 篇大厂面经 5、30 个学习专题  🚀 🚀 🚀 右上角点个 star，加入我们万人学习群！English Supported！</title>
+<meta name="description" content="🌍 东半球最酷的学习项目 | 1、我写的三十万字算法图解 2、千本开源电子书 3、100 张思维导图 4、100 篇大厂面经 5、30 个学习专题  🚀 🚀 🚀 右上角点个 star，加入我们万人学习群！English Supported！ - geekxh/hello-algorithm">
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+<link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+<meta property="fb:app_id" content="1401488693436528">
+<meta name="apple-itunes-app" content="app-id=1477376905">
 
-    <meta name="twitter:image:src" content="https://avatars0.githubusercontent.com/u/64886238?s=400&amp;v=4" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="geekxh/hello-algorithm" /><meta name="twitter:description" content="🌍 东半球最酷的学习项目 | 1、我写的三十万字算法图解 2、千本开源电子书 3、100 张思维导图 4、100 篇大厂面经 5、30 个学习专题  🚀 🚀 🚀 右上角点个 star，加入我们万人学习群！English Supported！ - geekxh/hello-algorithm" />
+<meta name="twitter:image:src" content="https://avatars0.githubusercontent.com/u/64886238?s=400&amp;v=4" /><meta name="twitter:site" content="@github" /><meta name="twitter:card" content="summary" /><meta name="twitter:title" content="geekxh/hello-algorithm" /><meta name="twitter:description" content="🌍 东半球最酷的学习项目 | 1、我写的三十万字算法图解 2、千本开源电子书 3、100 张思维导图 4、100 篇大厂面经 5、30 个学习专题  🚀 🚀 🚀 右上角点个 star，加入我们万人学习群！English Supported！ - geekxh/hello-algorithm" />
     <meta property="og:image" content="https://avatars0.githubusercontent.com/u/64886238?s=400&amp;v=4" /><meta property="og:site_name" content="GitHub" /><meta property="og:type" content="object" /><meta property="og:title" content="geekxh/hello-algorithm" /><meta property="og:url" content="https://github.com/geekxh/hello-algorithm" /><meta property="og:description" content="🌍 东半球最酷的学习项目 | 1、我写的三十万字算法图解 2、千本开源电子书 3、100 张思维导图 4、100 篇大厂面经 5、30 个学习专题  🚀 🚀 🚀 右上角点个 star，加入我们万人学习群！English Supported！ - geekxh/hello-algorithm" />
     
-    <h3><a id="user-content-使用指南" class="anchor" aria-hidden="true" href="#使用指南"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>使用指南</h3>
-<p>1、因为本教程完全免费，但现在被一些不良商家拿去卖钱，<b> 所以我需要你先帮我点一个 star </b>，助力原创，防止更多人上当受骗，也顺便支持我一下。</p>
-
-因为本项目完全免费开源，但现在被一些不良商家拿去卖钱， 所以我需要你先帮我点一个 star ，助力原创，防止更多人上当受骗，也顺便支持我一下。
+<h3><a id="user-content-使用指南" class="anchor" aria-hidden="true" href="#使用指南"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>使用指南</h3>
+<p>因为本教程完全免费，但现在被一些不良商家拿去卖钱，<b> 所以我需要你先帮我点一个 star </b>，助力原创，防止更多人上当受骗，也顺便支持我一下。</p>
 
 
 ## 开篇序
