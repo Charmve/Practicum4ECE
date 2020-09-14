@@ -13,12 +13,12 @@ This repository cantained my some protical project based-in-or-out my class theo
 Hello World！
 ```
 <p>在毕业学年，由于现阶段各项学习安排不那么紧密，终于抽出时间来，把我大学阶段做过的项目实践经历整理并分享给大家。一是为了加强自己的对所学内容的巩固和提炼，同时如有理解和掌握上的不足，或许也能得到各位仁人志士的帮助；二是考虑这也许能为本专业内学弟学妹们提供简单的参考，做一个知识的传递和分享。</p>
-<p>本项目目前阶段计划将大学阶段学到的内容按照**专业课程设计**（包括上机实验、课程设计、下学年的毕业设计等）、**竞赛项目**、**科创项目**、**小型编程项目**这四个门类进行编写。</p>
+<p>本项目目前阶段计划将大学阶段学到的内容按照<b>专业课程设计</b>（包括上机实验、课程设计、下学年的毕业设计等）、<b>竞赛项目</b>、<b>科创项目</b>、<b>小型编程项目</b>这四个门类进行编写。</p>
 
 
 ![项目清单](https://img-blog.csdnimg.cn/20191212173352559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)
 
-<div align=center>CSDN博客写作内容（近段时间）</div></p>
+<div align=center size = 3 color = gray>CSDN博客写作内容（近段时间）</div></p>
 
 现阶段先按照这个结构框架来写，之后有了更丰富好的内容再继续调整和/或补充。
 
@@ -26,7 +26,7 @@ Hello World！
 
 
 <br>
-<font size = 5>目前已更新课程设计项目为<font size = 2>（点击链接即可查看）</font>：</font>
+<div>目前已更新课程设计项目为<div size = 3 color = lightblue>（点击链接即可查看）</div>：</div>
 
 <br>
 
@@ -75,6 +75,6 @@ Hello World！
 
 <div align=center><img src="https://image.jiqizhixin.com/uploads/editor/d8595d93-e8c9-4abf-91f4-105384736912/%E5%9B%BE%E7%89%8712.jpg" height="330" width="330"></div>
 
-<div align=center>△微信扫一扫，关注我</div>
+<div align=center size = 3><b>△微信扫一扫，关注我</b></div>
 
 
