@@ -730,7 +730,7 @@ void Motor_Turn(bit n)
 <br>
 
 <br>
-<div align=center size = 3>font face="黑体" size=5>  ***欢迎各位订阅我，谢谢大家的点赞和专注！我会继续给大家分享我大学期间详细的实践项目。***  </font></div>
+<div align=center size = 3><font face="黑体" size=5>  ***欢迎各位订阅我，谢谢大家的点赞和专注！我会继续给大家分享我大学期间详细的实践项目。***  </font></div>
 <br>
 
 <div align=center><img src="https://img-blog.csdnimg.cn/20200224183312714.png"></div>	
