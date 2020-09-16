@@ -1,8 +1,7 @@
 @[TOC](基于PID的直流电机调速控制系统)
 
 > <p>本次应用系统课程设计主要涉及<b>基于STM32编程</b>、<b>直流电机的驱动</b>和<b>PID控制</b>的应用，根据课程设计要求完成了基于PID算法的简单直流电机调速练习，本系统目前还可以继续完善，有相当多的功能可以继续添加。另外，对于PID算法的调参问题一直是困扰做项目的人，后来我们采用Matlab&Simulink仿真的方式，大大缩短了参数整定的时间，具体参考本仓库中的另一个项目
-<p align="center"> 
-	🍉[04_Simulink4UART通信仿真](https://github.com/ChromeWei/Practicum/tree/master/04_Simulink4UART%E9%80%9A%E4%BF%A1%E4%BB%BF%E7%9C%9F).</p>
+<p align="center"> 🍉[04_Simulink4UART通信仿真](https://github.com/ChromeWei/Practicum/tree/master/04_Simulink4UART%E9%80%9A%E4%BF%A1%E4%BB%BF%E7%9C%9F).</p>
 > <p><b>特此感谢</b>，课程设计过程中任课老师陈老师给予的指导和帮助！</p>
 
 <br>
