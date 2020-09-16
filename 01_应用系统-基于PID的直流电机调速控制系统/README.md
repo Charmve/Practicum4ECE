@@ -709,7 +709,7 @@ void Motor_Turn(bit n)
 	
 ```
 <br>
-###相关阅读：
+### 相关阅读：
 <br>
 
 1. [<font face="微软雅黑" size=5>开篇序——一篇来自电子信息专业普通本科生的项目实践分享</font>](https://blog.csdn.net/Charmve/article/details/103450821)
@@ -729,7 +729,9 @@ void Motor_Turn(bit n)
 <div align=center size = 3><b>-END-</b></div>
 <br>
 
-<font face="黑体" size=5>  ***欢迎各位订阅我，谢谢大家的点赞和专注！我会继续给大家分享我大学期间详细的实践项目。***  </font>
+<br>
+<div align=center size = 3>font face="黑体" size=5>  ***欢迎各位订阅我，谢谢大家的点赞和专注！我会继续给大家分享我大学期间详细的实践项目。***  </font></div>
+<br>
 
 <div align=center><img src="https://img-blog.csdnimg.cn/20200224183312714.png"></div>	
 <div align=center size = 3>△微信扫一扫，关注我</div>
