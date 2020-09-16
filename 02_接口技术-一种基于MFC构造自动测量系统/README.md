@@ -11,7 +11,9 @@
 &emsp;&emsp;通过MFC编写上位机显示采集到的信号波形，提供键鼠操作图像的缩放、保存等功能。经实际测试，不断调节激励信号的显示X、Y轴及参数，系统测量显示已达到稳定性、快速性、准确性的基本要求，能够较好的满足一般测试要求。<br>
 <font face="黑体" size=4>**关键字：**</font>  MFC；RS232；数字信号发生器；示波器；数字程控<p><br><br>
 ![系统结构示意图](https://img-blog.csdnimg.cn/20191209150135880.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)
-<center>多种波形发生电路自动测量系统结构示意图<br><br></center>
+<p align="center">
+    多种波形发生电路自动测量系统结构示意图
+</p>
 <br><br>
 
 # 第一部分 课程设计概述
@@ -20,9 +22,13 @@
 &emsp;&emsp;自动测量是计算机控制下的测量过程，必须对单次测量有充分理解，才能实现连续的自动过程。
 
 &emsp;&emsp;基本的测量过程都是： 
-&emsp;&emsp;&emsp;&emsp;产生激励信号 -> 经过被测系统 -> 产生输出的响应信号<p>
+<p align="center">
+    产生激励信号 -> 经过被测系统 -> 产生输出的响应信号
+</p>
  ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209175304312.png#pic_center)
-<center>图1.1 测量原理图</center>
+<p align="center">
+    图1.1 测量原理图
+</p>
 
 &emsp;&emsp;对激励信号与响应信号的分析，可以获得被测系统的特性。例如向直流分压电路施加一个电压信号，在输出端得到对应的分压电压。比较输出和输入的电压大小，可以得到该电路的分压比等特性。
 
@@ -35,23 +41,30 @@
 &emsp;&emsp;&emsp;&emsp;直流放大特性的测量等等。<br>
 
 &emsp;&emsp;<b>要求</b>：
+
 &emsp;&emsp;&emsp;&emsp;基本要求是没有被测系统，直接使用示波器测量信号发生器的输出。<br>
 
 ## 2 课程设计题目
 &emsp;&emsp;构造自动测量系统
 ## 3 设计功能要求
 （1）在 windows 系统下通过接口与仪器实现通信<br>
+
 &emsp;&emsp;常用的仪器接口有： USB，RS232C，以太网，GPIB，PCI 等。<br>
+
 &emsp;&emsp;实验室中提供的有： 使用 RS232C 的程控信号发生器，数字直流电压表 PZ-150 使用 USB 的存储示波器<br>
+
 &emsp;&emsp;接口只是硬件的实现，更重要的是程控命令的功能和定义。<br>
 
 （2）在程序界面上显示激励信号；
 
 （3）在程序界面上显示测量到的响应信号
+
 &emsp;&emsp;智能示波器采用的是 USB 接口，但是使用 USB 中 CDC 方式构造了虚拟串口，因此在程序中表现为串口编程。<br>
+
 &emsp;&emsp;采用边测量边画点的方法，可以画出响应波形。<br>
 
 （4）在程序界面上显示测量系统的测量获得的结果特性
+
 &emsp;&emsp;按照被测量特性的定义要求，由激励与响应计算出特性曲线。<br>
 
 （5）扩展部分自选测量内容，设计被测系统（如滤波器的频率特性），实现完整的测量系统。
