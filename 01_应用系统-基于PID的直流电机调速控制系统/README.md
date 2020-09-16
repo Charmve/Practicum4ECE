@@ -1,16 +1,16 @@
 @[TOC](基于PID的直流电机调速控制系统)
 
-> 本次应用系统课程设计主要涉及**基于STM32编程**、**直流电机的驱动**和**PID控制**的应用，根据课程设计要求完成了基于PID算法的简单直流电机调速练习，本系统目前还可以继续完善，有相当多的功能可以继续添加。另外，对于PID算法的调参问题一直是困扰做项目的人，后来我们采用Matlab&Simulink仿真的方式，大大缩短了参数整定的时间，后期将会进一步分享此方法。<p>
+> 本次应用系统课程设计主要涉及<b>基于STM32编程</b>、<b>直流电机的驱动</b>和<b>PID控制</b>的应用，根据课程设计要求完成了基于PID算法的简单直流电机调速练习，本系统目前还可以继续完善，有相当多的功能可以继续添加。另外，对于PID算法的调参问题一直是困扰做项目的人，后来我们采用Matlab&Simulink仿真的方式，大大缩短了参数整定的时间，后期将会进一步分享此方法。<p>
 > 对于想要获取此**课程设计报告word/PDF排版**的同学，欢迎光顾小生寒舍  [GitHub: https://github.com/ChromeWei?tab=repositories](https://github.com/ChromeWei/Practicum/tree/master/01_%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F-%E5%9F%BA%E4%BA%8EPID%E7%9A%84%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA%E8%B0%83%E9%80%9F%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F) 也可点击[==我的下载==](//download.csdn.net/download/Charmve/12038047)进行下载，但需要积分。<br>
-> <font color =red >直接获取方式：关注微信公众号迈微电子研发社，回复“**电机调速**”，网盘下载链接。</font><br>
->  **特此感谢，** 课程设计过程中任课老师陈老师给予的指导和帮助！<p>
+> 直接获取方式：关注微信公众号迈微电子研发社，回复“**电机调速**”，网盘下载链接。<br>
+>  <b>特此感谢</b>，课程设计过程中任课老师陈老师给予的指导和帮助！<p>
 
 
-<font face="黑体" size=4>==**摘要**==</font> 
+## 摘要
 &emsp;&emsp;当今，自动化控制系统已经在各行各业得到了广泛的应用和发展，而直流电机驱动控制作为电器传动的主流在现代化生产中起着主要作用。长期以来，直流电动机因其转速调节比较灵活，方法简单，易于大范围平滑调速，控制性能好等特点，一直在传动领域占有统治地位。
 &emsp;&emsp;本课程设计主要通过PWM调速实现直流电机的正转、反转、加速、减速、启停等操作，利用PID控制算法使系统更加快速和稳定。为实现系统的控制，采用了STC15F2K60S2增强型单片机作为整个控制系统的核心部分，配以OLED显示电机速度、AD测量值、电机正反转等参数，实现系统的人机交互。不断采集霍尔编码器的脉冲数读取电机的转速，利用PID增量式方法快速在旋钮调解时趋向目标值。同时，通关过匿名上位机实时观测调节过程，或是超调，亦或是振荡都能及时的看出来。
 &emsp;&emsp;通过外部中断、定时器中断、AD中断操作，在方案实现的过程中，需要明确他们的优先级，防止发生冲突。这也是本系统设计的一个难题。<br>
-<font face="黑体" size=4>**关键字：**</font> 直流电机；单片机；PID；PWM 编码器<p><br><br>
+<b>关键字：</b> 直流电机；单片机；PID；PWM 编码器<p><br><br>
 
 
 # 第一部分 课程设计概述	
@@ -43,7 +43,11 @@
 &emsp;&emsp;主要通过PWM调速实现直流电机的正转、反转、加速、减速、启停等操作，利用PID控制算法使系统更加快速和稳定。为实现系统的控制，采用了STC15F2K60S2增强型单片机作为整个控制系统的核心部分，配以OLED显示电机速度、AD测量值、电机正反转等参数，实现系统的人机交互。不断采集霍尔编码器的脉冲数读取电机的转速，利用PID增量式方法快速在旋钮调解时趋向目标值。	
 ## 2.2 技术方案分析	
 ### 2.2.1系统框图	
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234244676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>图2.1 系统框图</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234244676.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+
+ <p align="center">
+    图2.1 系统框图
+</p>
 ### 2.2.2电路工作原理	
 &emsp;&emsp;根据励磁方式不同， 直流电机分为自励和他励两种类型。 不同励磁方式的直流电机机 械特性曲线有所不同。对于直流电机来说，认为机械特性方程式为：
 
@@ -58,15 +62,23 @@
 ### 2.2.3控制算法原理	
 &emsp;&emsp;PID（比例（proportion）、积分（integral）、导数（derivative））通过线性组合构成控制量，用这一控制量对被控对象进行控制，这样的控制器称PID控制器。
 &emsp;&emsp;一般情况下，这个反馈就是速度传感器返回给单片机当前电机的转速。简单的说，就是用这个反馈跟预设值进行比较，如果转速偏大，就减小电机两端的电压(电流)；相反，则增加电机两端的电压(电流) 。
- ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234633495.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>图2.2 PID原理图</center>
+<div align=center> ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234633495.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
  
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234650253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>图2.3 PID调节分析</center>
+ <p align="center">
+    图2.2 PID原理图
+</p>
+ 
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234650253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) </div>
+
+<p align="center">
+    图2.3 PID调节分析
+</p>
 
 ## 2.3 功能指标实现方法	
 ### 2.3.1 实现方案分析	
 &emsp;&emsp;**方案一：** 采用电阻网络或数字电位器调整电动机的分压，从而达到调速的目的。但是电阻网络智能实现有级调速， 而数字电阻的元器件价格比较昂贵。 更主要的问题在于一般电动机的电阻很小，但电流很大，分压不仅会降低效率，而且实现起来很困难。 
 &emsp;&emsp;**方案二：** 采用继电器对电动机的开或关进行控制， 通过开关的切换对电机的速度进行调整。这个方案的优点是电路较为简单， 缺点是继电器的响应时间慢、机械结构容易损坏、寿命较短、可靠性不高。 
-&emsp;&emsp;**方案三：** 采用驱动芯片 L298驱动直流电机， L298具有驱动能力强，外围电路简单等 优点。 
+&emsp;&emsp;**方案三：** 采用驱动芯片 L298驱动直流电机， L298具有驱动能力强，外围电路简单等优点。 
 &emsp;&emsp;综合各方面的因素，采用了**方案三**。
 
 ### 2.3.2 基本模块原理	
@@ -84,11 +96,20 @@
 |--|--|--|
 |AIN2 | 0|      1 |     0|
  |停止 |正传 |  反转|
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234713180.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>图2.4 TB6612驱动模块</center>
+
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234713180.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+
+<p align="center">
+    图2.4 TB6612驱动模块
+</p>
 
 **2.编码器**
 &emsp;&emsp;霍尔器件是一种磁传感器，是半 导体材料制成的一种薄片，它是 一种磁敏感器件，当它处于磁场 中时，会产生电动势。在垂直磁 场平面方向上施加外磁场、在沿 平面上加外电场，则使电子在磁 场中运动，结果在器件的的两个 侧面之间产生霍尔电势，霍尔电 势的大小和外磁场以及电流大小 成正比。用它们可以检测磁场及 其变化，可在各种与磁场有关的 场合中使用。霍尔器件以霍尔效 应为其工作基础。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/201912092347354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) <center>图2.5 霍尔编码器</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/201912092347354.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) </div>
+
+<p align="center">
+   图2.5 霍尔编码器
+</p>
 <br><br>
 
 # 第三部分 核心部件电路设计	
@@ -96,8 +117,16 @@
 &emsp;&emsp;本系统设计主要涉及电路驱动模块、电源模块、霍尔编码器测试模块，主要性能及原理详见第二部分中基本模块原理分析部分。
 ## 3.2 电路工作原理
 &emsp;&emsp;主要涉及编码器的测速、电机驱动模块。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2019120923474651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>图3.1 编码器</center>
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234759602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) <center>图3.2 编码器测速原理示意</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/2019120923474651.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+
+<p align="center">
+   图3.1 编码器
+</p>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234759602.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) </div>
+
+<p align="center">
+	图3.2 编码器测速原理示意
+</p>
 
 ## 3.3 电路驱动接口说明
 &emsp;&emsp;测试按键P55，测试LED P54，驱动TB6612 INA0 P16、INA1 P15，PWMA P14，En P17。
@@ -112,7 +141,11 @@
 
 ## 4.2 程序设计思路
 &emsp;&emsp;利用 P3口，编制程序输出一串脉冲，经放大后驱动直流电机，改变输出脉冲的电平的持续时间，达到使电机正转、反转、停止、加速、减速等目的。由软件编程从 P3.0/P3.1管脚产生PWM信号，经驱动电路输出给电机，从而控制电机得电与失电。软件采用延时法进行设计。单片机上电后，系统进入准备状态。按动正转按钮后，根据 P3.0为高电平时实现电机正转，P3.1为高电平时实现电机反转。根据不同的加减速按钮，调整 P3.0/P3.1输出高低电平时的有效值，进而控制电机的加减速。其主程序流程如图2所示。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234816983.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)	<center>图4.1 程序设计流程图</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234816983.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+	
+<p align="center">
+   图4.1 程序设计流程图
+</p>
 
 ## 4.3 关键模块程序清单	
 ### 4.3.1编码器测速	
@@ -266,14 +299,27 @@ void IncPIDCalc1(unsigned int AimSpeed,unsigned int Current)
 &emsp;&emsp;根据实验结果，本设计基本完成了设计要求，系统能够实现正转、反转、加速、减速、 停止能功能。但是由于我对数码管等显示模块掌握度不够，系统还不能显示出电机转速，如果可以再多给我一些时间，我一定能设法用OLED显示出电机的转速。
 
 ### 4.4.2 PID算法调节分析
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209235242253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>图4.2 Kp = 1.312, Ki = 0, Kd = 0;</center>
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209235250854.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) <center>图4.3 Kp = 1.312, Ki = 0.12, Kd = 0;</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209235242253.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+
+<p align="center">
+   图4.2 Kp = 1.312, Ki = 0, Kd = 0;
+</p>
+
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209235250854.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) </div>
+
+<p align="center">
+   图4.3 Kp = 1.312, Ki = 0.12, Kd = 0;
+</p>
+
 &emsp;&emsp;从上面两张实时波形图的结果，显而易见可以得出以下结论或者经验：
 
 &emsp;&emsp;显然比例P越大时，电机转速回归到输入值的速度将更快，及调节灵敏度就越高。从而，加大P值，可以减少从非稳态到稳态的时间。但是同时也可能造成电机转速在预设值附近振荡的情形，所以又引入积分I解决此问题。
 &emsp;&emsp;积分环节主要是用来消除静差，所谓静差就是系统稳定后输出值和设定值之间的差值，积分环节实际上就是偏差累计的过程，把累计的误差加到原有系统上以抵消系统造成的静差。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209235329311.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) 
-<center>图4.4 Kp = 1.312, Ki = 0.0001, Kd = 0;</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209235329311.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) </div>
+
+<p align="center">
+   图4.4 Kp = 1.312, Ki = 0.0001, Kd = 0;
+</p>
 
 <br><br>		
 # 第五部分 心得体会
@@ -289,12 +335,23 @@ void IncPIDCalc1(unsigned int AimSpeed,unsigned int Current)
 [3] 张堔. 直流无刷电动机原理及应用 . 北京: 北京机械工业出版社 ,1996 
 
 ## Ⅱ 电路原理图	
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234904729.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>图i-1STC15F2K60S2最小系统版</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234904729.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+<p align="center">
+   图i-1STC15F2K60S2最小系统版
+</p>
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234918561.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)       <center>图i-2 直流电机实验板</center>
 
- ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234928330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)
-<center>图i-3 STC底板原理图</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234918561.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center) </div>      
+
+<p align="center">
+   图i-2 直流电机实验板
+</p>
+
+<div align=center> ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234928330.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+<p align="center">
+  图i-3 STC底板原理图
+</p>
+
 
 ## Ⅲ 核心源代码	
 
@@ -616,7 +673,7 @@ void Motor_Turn(bit n)
 	
 ```
 <br>
-<font size = 5>相关阅读：</font>
+### 相关阅读：
 <br>
 
 1. [<font face="微软雅黑" size=5>开篇序——一篇来自电子信息专业普通本科生的项目实践分享</font>](https://blog.csdn.net/Charmve/article/details/103450821)
@@ -632,18 +689,22 @@ void Motor_Turn(bit n)
 
 
 <br>
-<center>-END-</center><br>
+<div align=center size = 3><b>-END-</b></div>
 
 
 <font face="黑体" size=5>  ***欢迎各位订阅我，谢谢大家的点赞和专注！我会继续给大家分享我大学期间详细的实践项目。***  </font>
 
 
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200224183312714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)<center>△微信扫一扫关注「迈微电子研发社」公众号</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20200224183312714.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
+	
+<div align=center size = 3><b>△微信扫一扫，关注我</b></div>
 
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200225182015550.png#pic_center)<center>△扫码加入「迈微电子研发社」学习辅导群</center>
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/20200225182015550.png#pic_center)</div>
+
+<div align=center size = 3><b>△扫码加入「迈微电子研发社」学习辅导群</b></div>
 
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/2020022418361459.png#pic_center)
+<div align=center>![在这里插入图片描述](https://img-blog.csdnimg.cn/2020022418361459.png#pic_center)</div>
 
