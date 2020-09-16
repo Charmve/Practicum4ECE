@@ -1,15 +1,20 @@
 @[TOC](基于PID的直流电机调速控制系统)
 
-> <p>本次应用系统课程设计主要涉及<b>基于STM32编程</b>、<b>直流电机的驱动</b>和<b>PID控制</b>的应用，根据课程设计要求完成了基于PID算法的简单直流电机调速练习，本系统目前还可以继续完善，有相当多的功能可以继续添加。另外，对于PID算法的调参问题一直是困扰做项目的人，后来我们采用Matlab&Simulink仿真的方式，大大缩短了参数整定的时间，具体参考本仓库中的另一个项目🍉 [04_Simulink4UART通信仿真](https://github.com/ChromeWei/Practicum/tree/master/04_Simulink4UART%E9%80%9A%E4%BF%A1%E4%BB%BF%E7%9C%9F).</p>
-> <p>对于想要获取此<b>课程设计报告word/PDF排版</b>的同学，欢迎光顾小生寒舍GitHub: https://github.com/ChromeWei/Practicum, 也可点击[``我的下载``](https://download.csdn.net/download/Charmve/12038047)进行下载，但需要积分。</p>
-> <p>直接获取方式：关注微信公众号迈微电子研发社，回复“**电机调速**”，网盘下载链接。</p>
+> <p>本次应用系统课程设计主要涉及<b>基于STM32编程</b>、<b>直流电机的驱动</b>和<b>PID控制</b>的应用，根据课程设计要求完成了基于PID算法的简单直流电机调速练习，本系统目前还可以继续完善，有相当多的功能可以继续添加。另外，对于PID算法的调参问题一直是困扰做项目的人，后来我们采用Matlab&Simulink仿真的方式，大大缩短了参数整定的时间，具体参考本仓库中的另一个项目[🍉 04_Simulink4UART通信仿真](https://github.com/ChromeWei/Practicum/tree/master/04_Simulink4UART%E9%80%9A%E4%BF%A1%E4%BB%BF%E7%9C%9F).</p>
+> [🍉 04_Simulink4UART通信仿真](https://github.com/ChromeWei/Practicum/tree/master/04_Simulink4UART%E9%80%9A%E4%BF%A1%E4%BB%BF%E7%9C%9F)
+> <p>对于想要获取此<b>课程设计报告word/PDF排版</b>的同学，欢迎光顾小生寒舍GitHub: https://github.com/ChromeWei/Practicum, 也可点击[``我的下载``](https://download.csdn.net/download/Charmve/12038047) 进行下载，但需要积分。</p>
+> <p>直接获取方式：关注微信公众号迈微电子研发社，回复“<b>电机调速</b>”，网盘下载链接。</p>
 > <p><b>特此感谢</b>，课程设计过程中任课老师陈老师给予的指导和帮助！</p>
 
+<br>
 
 ## 摘要
 &emsp;&emsp;当今，自动化控制系统已经在各行各业得到了广泛的应用和发展，而直流电机驱动控制作为电器传动的主流在现代化生产中起着主要作用。长期以来，直流电动机因其转速调节比较灵活，方法简单，易于大范围平滑调速，控制性能好等特点，一直在传动领域占有统治地位。<br>
+
 &emsp;&emsp;本课程设计主要通过PWM调速实现直流电机的正转、反转、加速、减速、启停等操作，利用PID控制算法使系统更加快速和稳定。为实现系统的控制，采用了STC15F2K60S2增强型单片机作为整个控制系统的核心部分，配以OLED显示电机速度、AD测量值、电机正反转等参数，实现系统的人机交互。不断采集霍尔编码器的脉冲数读取电机的转速，利用PID增量式方法快速在旋钮调解时趋向目标值。同时，通关过匿名上位机实时观测调节过程，或是超调，亦或是振荡都能及时的看出来。<br>
+
 &emsp;&emsp;通过外部中断、定时器中断、AD中断操作，在方案实现的过程中，需要明确他们的优先级，防止发生冲突。这也是本系统设计的一个难题。<br>
+
 <p><b>关键字：</b> 直流电机；单片机；PID；PWM 编码器</p><br>
 
 
@@ -41,11 +46,11 @@
 （4）写课程设计报告<br>
 
 ## 1.5 实验仪器设备及器件	
-1）PC机；<br>
+&emsp;&emsp;1）PC机；<br>
 
-2）Keil C51软件；<br>
+&emsp;&emsp;2）Keil C51软件；<br>
 
-3）STC15F2K60S2增强型单片机，TB6612电机驱动芯片，直流电机，OLED显示屏；<br>
+&emsp;&emsp;3）STC15F2K60S2增强型单片机，TB6612电机驱动芯片，直流电机，OLED显示屏；<br>
 <br><br>	
 
 # 第二部分 设计方案工作原理
@@ -65,7 +70,8 @@
 
 $$&emsp;&emsp;n=UN/(KeφN)-(Rad+Ra)/(K eKtφ2N)T=n-△n （公式 1-1）$$
 
-式中 UN ，φN ---------- 额定电枢电压、额定磁通量；<br>
+式中:
+&emsp;&emsp;&emsp;&emsp;&emsp;UN ，φN ---------- 额定电枢电压、额定磁通量；<br>
 &emsp;&emsp;&emsp;&emsp;&emsp;Ke ，Kt---与电机有关的常数； <br>
 &emsp;&emsp;&emsp;&emsp;&emsp;Rad ，Ra-----电枢外加电阻、电枢内电阻； <br>
 &emsp;&emsp;&emsp;&emsp;&emsp;n ，△n—理想空载转速、转速降。 <br>
@@ -101,7 +107,7 @@ $$&emsp;&emsp;n=UN/(KeφN)-(Rad+Ra)/(K eKtφ2N)T=n-△n （公式 1-1）$$
 &emsp;&emsp;综合各方面的因素，采用了**方案三**。<br>
 
 ### 2.3.2 基本模块原理	
-**1.驱动模块TB6612**<br>
+**1. 驱动模块TB6612**<br>
 &emsp;&emsp;TB6612是双驱动，也就是可以驱动两个电机。下面分别是控制两个电机的IO口，STBY口接单片机的IO口清零电机全部停止，置1通过AIN1 AIN2，BIN1，BIN2 来控制正反转。<br>
 |VM  | 接12V以内电源 |
 |--|--|
@@ -121,7 +127,7 @@ $$&emsp;&emsp;n=UN/(KeφN)-(Rad+Ra)/(K eKtφ2N)T=n-△n （公式 1-1）$$
     图2.4 TB6612驱动模块
 </p>
 
-**2.编码器**<br>
+**2. 编码器**<br>
 
 &emsp;&emsp;霍尔器件是一种磁传感器，是半 导体材料制成的一种薄片，它是 一种磁敏感器件，当它处于磁场 中时，会产生电动势。在垂直磁 场平面方向上施加外磁场、在沿 平面上加外电场，则使电子在磁 场中运动，结果在器件的的两个 侧面之间产生霍尔电势，霍尔电 势的大小和外磁场以及电流大小 成正比。用它们可以检测磁场及 其变化，可在各种与磁场有关的 场合中使用。霍尔器件以霍尔效 应为其工作基础。<br>
 <div align=center><img src="https://img-blog.csdnimg.cn/201912092347354.png"></div>
@@ -130,7 +136,7 @@ $$&emsp;&emsp;n=UN/(KeφN)-(Rad+Ra)/(K eKtφ2N)T=n-△n （公式 1-1）$$
 <p align="center">
    图2.5 霍尔编码器
 </p>
-<br><br>
+<br>
 
 # 第三部分 核心部件电路设计	
 ## 3.1 关键器件性能分析
@@ -338,7 +344,7 @@ void IncPIDCalc1(unsigned int AimSpeed,unsigned int Current)
    图4.3 Kp = 1.312, Ki = 0.12, Kd = 0;
 </p>
 
-&emsp;&emsp;从上面两张实时波形图的结果，显而易见可以得出以下结论或者经验：<br>
+从上面两张实时波形图的结果，显而易见可以得出以下结论或者经验：<br>
 
 &emsp;&emsp;显然比例P越大时，电机转速回归到输入值的速度将更快，及调节灵敏度就越高。从而，加大P值，可以减少从非稳态到稳态的时间。但是同时也可能造成电机转速在预设值附近振荡的情形，所以又引入积分I解决此问题。<br>
 
@@ -716,8 +722,9 @@ void Motor_Turn(bit n)
 
 4. [<font face="微软雅黑" size=5>深入浅出PID控制算法（一）——连续控制系统的PID算法及MATLAB仿真</font>](https://blog.csdn.net/Charmve/article/details/104538102)
 
-5. [<font face="微软雅黑" size=5>深入浅出PID控制算法（二）————PID算法离散化和增量式PID算法原理及Matlab实现](https://blog.csdn.net/Charmve/article/details/104537081)  原文链接：https://blog.csdn.net/Charmve/article/details/104537081
-6. [<font face="微软雅黑" size=5>深入浅出PID控制算法（三）————增量式与位置式PID算法的C语言实现与电机控制经验总结](https://blog.csdn.net/Charmve/article/details/104536504) 原文链接：https://blog.csdn.net/Charmve/article/details/104536504
+5. [<font face="微软雅黑" size=5>深入浅出PID控制算法（二）————PID算法离散化和增量式PID算法原理及Matlab实现](https://blog.csdn.net/Charmve/article/details/104537081)  
+	
+6. [<font face="微软雅黑" size=5>深入浅出PID控制算法（三）————增量式与位置式PID算法的C语言实现与电机控制经验总结](https://blog.csdn.net/Charmve/article/details/104536504) 
 
 
 <br>
