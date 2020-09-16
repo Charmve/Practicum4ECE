@@ -1,7 +1,7 @@
 @[TOC](基于PID的直流电机调速控制系统)
 
-> <p>本次应用系统课程设计主要涉及<b>基于STM32编程</b>、<b>直流电机的驱动</b>和<b>PID控制</b>的应用，根据课程设计要求完成了基于PID算法的简单直流电机调速练习，本系统目前还可以继续完善，有相当多的功能可以继续添加。另外，对于PID算法的调参问题一直是困扰做项目的人，后来我们采用Matlab&Simulink仿真的方式，大大缩短了参数整定的时间，后期将会进一步分享此方法。</p>
-> <p>对于想要获取此**课程设计报告word/PDF排版**的同学，欢迎光顾小生寒舍  [GitHub: https://github.com/ChromeWei?tab=repositories](https://github.com/ChromeWei/Practicum/tree/master/01_%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F-%E5%9F%BA%E4%BA%8EPID%E7%9A%84%E7%9B%B4%E6%B5%81%E7%94%B5%E6%9C%BA%E8%B0%83%E9%80%9F%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F) 也可点击[==我的下载==](//download.csdn.net/download/Charmve/12038047)进行下载，但需要积分。</p>
+> <p>本次应用系统课程设计主要涉及<b>基于STM32编程</b>、<b>直流电机的驱动</b>和<b>PID控制</b>的应用，根据课程设计要求完成了基于PID算法的简单直流电机调速练习，本系统目前还可以继续完善，有相当多的功能可以继续添加。另外，对于PID算法的调参问题一直是困扰做项目的人，后来我们采用Matlab&Simulink仿真的方式，大大缩短了参数整定的时间，具体参考本仓库中的另一个项目[04_Simulink4UART通信仿真](https://github.com/ChromeWei/Practicum/tree/master/04_Simulink4UART%E9%80%9A%E4%BF%A1%E4%BB%BF%E7%9C%9F)</p>
+> <p>对于想要获取此<b>课程设计报告word/PDF排版</b>的同学，欢迎光顾小生寒舍GitHub: https://github.com/ChromeWei?tab=repositories, 也可点击[``我的下载``](//download.csdn.net/download/Charmve/12038047)进行下载，但需要积分。</p>
 > <p>直接获取方式：关注微信公众号迈微电子研发社，回复“**电机调速**”，网盘下载链接。</p>
 > <p><b>特此感谢</b>，课程设计过程中任课老师陈老师给予的指导和帮助！</p>
 
@@ -44,7 +44,6 @@
 ## 2.2 技术方案分析	
 ### 2.2.1系统框图	
 <div align=center><img src="https://img-blog.csdnimg.cn/20191209234244676.png" ></div>
-<div align=center>![在这里插入图片描述](?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
 
  <p align="center">
     图2.1 系统框图
@@ -64,7 +63,7 @@
 &emsp;&emsp;PID（比例（proportion）、积分（integral）、导数（derivative））通过线性组合构成控制量，用这一控制量对被控对象进行控制，这样的控制器称PID控制器。
 &emsp;&emsp;一般情况下，这个反馈就是速度传感器返回给单片机当前电机的转速。简单的说，就是用这个反馈跟预设值进行比较，如果转速偏大，就减小电机两端的电压(电流)；相反，则增加电机两端的电压(电流) 。
 <div align=center> ![在这里插入图片描述](https://img-blog.csdnimg.cn/20191209234633495.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)</div>
- 
+ <div align=center><img src="https://img-blog.csdnimg.cn/20191209234633495.png"></div>
  <p align="center">
     图2.2 PID原理图
 </p>
