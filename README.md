@@ -18,7 +18,7 @@ This repository cantained my some protical project based-in-or-out my class theo
 <p>因为本项目完全免费开源，但现在被一些不良商家拿去卖钱， <b> 所以我需要你先帮我点一个 star </b>，助力原创，防止更多人上当受骗，也顺便支持我一下🚀 🚀 🚀</p>
 
 <p align="center">
-    <b>本Repository中的任意项目，欢迎提[issues](https://github.com/Charmve/Practicum4ECE/issues)，欢迎新的Contributors！！</b>
+    <b>本Repository中的任意项目，欢迎提[issues](https://github.com/Charmve/Practicum4ECE/issues) ，欢迎新的Contributors！！</b>
 </p>
 
 ## 开篇序
