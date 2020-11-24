@@ -90,7 +90,7 @@ Hello World！
 
 ## 研习社
 
-想要获得更多精彩内容，请关注微信公众号:迈微AI研习社
+想要获得更多精彩内容，请关注微信公众号: 迈微AI研习社
 
 <div align=center><img src="https://image.jiqizhixin.com/uploads/editor/d8595d93-e8c9-4abf-91f4-105384736912/%E5%9B%BE%E7%89%8712.jpg" height="330" width="330"></div>
 
