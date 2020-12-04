@@ -82,7 +82,7 @@ Hello World！
 
 <br>
 
-之后会将这些文章及项目程序开源在GitHub上，包括详细的项目开发所有资料：程序开发源程序、设计报告、器件清单和涉及的电路原理图。具体文件构成按照这个来[Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control](https://github.com/ChromeWei/Design-of-a-3D-Dynamic-Display-System-Based-on-Voice-Control)(一个小的开发项目——语音光立方)
+之后会将这些文章及项目程序开源在GitHub上，包括详细的项目开发所有资料：程序开发源程序、设计报告、器件清单和涉及的电路原理图。具体文件构成按照这个来[A-Design-of-3D-Dynamic-Display-System-Based-on-Voice-Control](https://github.com/Charmve/LightCube-A-Design-of-3D-Dynamic-Display-System-Based-on-Voice-Control)(一个小的开发项目——语音光立方)
 
 满怀热情地在此与各位同道中人交流学习，在整个仓库的整理汇总过程中，由于时间仓促，加之个人水平有限，文章中难免有疏漏和错误之处，恳请广大读者和专家指正，作者心怀感激！
 
