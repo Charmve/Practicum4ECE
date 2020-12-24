@@ -35,7 +35,8 @@ Hello World！
 
 现阶段先按照这个结构框架来写，之后有了更丰富好的内容再继续调整和/或补充。
 
-> ``特别说明``：部分项目已发表文章或申请专利/软著保护，在此说明此仓库中的项目实践经历只做学习交流使用，涉及商业用途请联系我（e-mail: yidazhang1@gmail.com）。
+> ``特别说明``：部分项目已发表文章或申请专利/软著保护，在此说明此仓库中的项目实践经历只做学习交流使用，涉及商业用途请联系我（e-mail: yidazhang1@gmail.com）。<br>
+> This project is for <b>research purpose</b> only, please contact us for the licence of commercial use. For any other questions please contact ✉️ yidazhang1@gmail.com
 
 
 <br>
@@ -85,10 +86,6 @@ Hello World！
 之后会将这些文章及项目程序开源在GitHub上，包括详细的项目开发所有资料：程序开发源程序、设计报告、器件清单和涉及的电路原理图。具体文件构成按照这个来[A-Design-of-3D-Dynamic-Display-System-Based-on-Voice-Control](https://github.com/Charmve/LightCube-A-Design-of-3D-Dynamic-Display-System-Based-on-Voice-Control)(一个小的开发项目——语音光立方)
 
 满怀热情地在此与各位同道中人交流学习，在整个仓库的整理汇总过程中，由于时间仓促，加之个人水平有限，文章中难免有疏漏和错误之处，恳请广大读者和专家指正，作者心怀感激！
-
-## Statement
-
-This project is for <b>research purpose</b> only, please contact us for the licence of commercial use. For any other questions please contact ✉️ yidazhang1@gmail.com
 
 <br>
 
