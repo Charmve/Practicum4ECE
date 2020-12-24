@@ -12,7 +12,7 @@
 ``一名普通电子信息本科生的项目实践管理``
 
 
-This repository cantained my some protical project based-in-or-out my class theory, which includes basical experiment about how to transimit/receive text with each device, PID controler, MCU basical&advanced experiment, digital imagor processing respectively.
+This repository cantained my some protical project based-in-or-out my class theory, which includes basical experiment about how to transimit/receive text with each device, PID controler, MCU basical & advanced experiment, digital imagor processing respectively.
     
 <h3><a id="user-content-使用指南" class="anchor" aria-hidden="true" href="#使用指南"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>使用指南</h3>
 <p>因为本项目完全免费开源，但现在被一些不良商家拿去卖钱， <b> 所以我需要你先帮我点一个 star </b>，助力原创，防止更多人上当受骗，也顺便支持我一下🚀 🚀 🚀</p>
@@ -86,11 +86,11 @@ Hello World！
 
 满怀热情地在此与各位同道中人交流学习，在整个仓库的整理汇总过程中，由于时间仓促，加之个人水平有限，文章中难免有疏漏和错误之处，恳请广大读者和专家指正，作者心怀感激！
 
-<br>
-
 ## Statement
 
-This project is for <b>research purpose</a> only, please contact us for the licence of commercial use. For any other questions please contact ✉️ yidazhang1@gmail.com
+This project is for <b>research purpose</b> only, please contact us for the licence of commercial use. For any other questions please contact ✉️ yidazhang1@gmail.com
+
+<br>
 
 ## 研习社
 
