@@ -35,7 +35,7 @@ Hello World！
 
 现阶段先按照这个结构框架来写，之后有了更丰富好的内容再继续调整和/或补充。
 
-> ``特别说明``：部分项目已发表文章或申请专利/软著保护，在此说明此仓库中的项目实践经历只做学习交流使用，涉及商业用途请联系我（e-mail: yidazhang1@gmail.com）。<br>
+> ``特别说明``：部分项目已发表文章或申请专利/软著保护，在此说明此仓库中的项目实践经历只做学习交流使用，涉及商业用途请联系我（e-mail: yidazhang1@gmail.com）。<br><br>
 > This project is for <b>research purpose</b> only, please contact us for the licence of commercial use. For any other questions please contact ✉️ yidazhang1@gmail.com
 
 
