@@ -88,6 +88,10 @@ Hello World！
 
 <br>
 
+## Statement
+
+This project is for <b>research purpose</a> only, please contact us for the licence of commercial use. For any other questions please contact ✉️ yidazhang1@gmail.com
+
 ## 研习社
 
 想要获得更多精彩内容，请关注微信公众号: 迈微AI研习社
