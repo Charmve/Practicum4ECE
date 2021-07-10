@@ -29,7 +29,7 @@ Hello World！
 <p>本项目目前阶段计划将大学阶段学到的内容按照<b>专业课程设计</b>（包括上机实验、课程设计、下学年的毕业设计等）、<b>竞赛项目</b>、<b>科创项目</b>、<b>小型编程项目</b>这四个门类进行编写。</p>
 
 
-![项目清单](https://img-blog.csdnimg.cn/20191212173352559.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0NoYXJtdmU=,size_16,color_FFFFFF,t_70#pic_center)
+![项目清单](https://img-blog.csdnimg.cn/20191212173352559.png#pic_center)
 
 <div align=center size = 3 color = gray>CSDN博客写作内容（近段时间）</div></p>
 
