@@ -87,9 +87,31 @@ Hello World！
 
 满怀热情地在此与各位同道中人交流学习，在整个仓库的整理汇总过程中，由于时间仓促，加之个人水平有限，文章中难免有疏漏和错误之处，恳请广大读者和专家指正，作者心怀感激！
 
+## Quick Start
+
+本repo由于包含多个项目的开发文档、源码，大家在使用时可以使用Google Chrome 插件可以下载单个文件。推荐两个：``Enhanced GitHub`` 和 ``GitZip``。
+
+![image](https://user-images.githubusercontent.com/29084184/125617168-b63db6f5-e344-4ee4-b522-2bd4d4ed9dc5.png#pic_center)
+
+使用前，
+
+![image](https://user-images.githubusercontent.com/29084184/125617711-d4e3bb6a-dd3d-465e-81b7-3943ebe4b35e.png)
+
+
+使用后，
+
+![image](https://user-images.githubusercontent.com/29084184/125617588-a24283da-f975-4118-ae7e-b688d4ef185c.png)
+
+
 <br>
 
-## 研习社
+## Maiwei AI Lab - 迈微AI研习社
+
+<a href="https://www.github.com/Charmve" target="_blank"><img src="https://img.shields.io/badge/创始人-@Charmve-000000.svg?style=flat-square&logo=GitHub"></a>  [![CircleCI](https://circleci.com/gh/Charmve/computer-vision-in-action.svg?style=svg)](https://circleci.com/gh/Charmve/computer-vision-in-action)
+
+作者系迈微AI研习社创始人、CSDN博客专家，主要分享机器学习算法、计算机视觉等相关内容，每周研读顶会论文，持续关注前沿技术动态。公众号底部有菜单分类，关注我们，一起学习成长。
+
+---
 
 想要获得更多精彩内容，请关注微信公众号: 迈微 AI 研习社
 
