@@ -1,16 +1,17 @@
 <div id="outputFigDisplay" class="fig">
-    <pre id="taag_output_text" style="float:left;" class="flag" contenteditable="true">
-    ____  _                                        
-  / ___|| |__    __ _  _ __  _ __ ___ __   __ ___ 
- | |    | '_ \  / _` || '__|| '_ ` _ \\ \ / // _ \
- | |___ | | | || (_| || |   | | | | | |\ V /|  __/
-  \____||_| |_| \__,_||_|   |_| |_| |_| \_/  \___|   
-    </pre>
+    <pre id="taag_output_text" style="float:center;" class="flag" contenteditable="true">
+        ____  _                       
+      / ___|| |__    __ _  _ __  _ __ ___ __   __ ___ 
+     | |    | '_ \  / _` || '__|| '_ ` _ \\ \ / // _ \
+     | |___ | | | || (_| || |   | | | | | |\ V /|  __/
+      \____||_| |_| \__,_||_|   |_| |_| |_| \_/  \___|                             
+                                                                               自动驾驶、数字孪生、计算机视觉 #沉淀与传播
+</pre>
 </div>
 
-# Practicum
-``一名普通电子信息本科生的项目实践管理``
+# Practicum - 电子信息、自动化、电子工程等专业课程设计/大作业
 
+``一名普通电子信息本科生的实践项目，涉及板球控制系统、模拟电磁曲射炮（视觉定位）、MFC、人脸识别、数字图像处理、PID电机调速等，总结分享、沉淀传播、促进交流``
 
 This repository cantained my some protical project based-in-or-out my class theory, which includes basical experiment about how to transimit/receive text with each device, PID controler, MCU basical & advanced experiment, digital imagor processing respectively.
     
@@ -105,6 +106,38 @@ Hello World！
 
 <br>
 
+# 声明
+<b>此份代码纯属开源，抛砖引玉，请不要拿去做倒卖以及牟利工作。谢谢！</b>
+
+打赏链接：用于群管理和扩充群
+
+<!--START_SECTION:sponsors-->
+<a href="https://charmve.github.io/sponsor.html" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-red.png" alt="Buy Me A Coffee" width="150" ></a>
+<!--
+<p align="center">
+  <a href="https://cdn.jsdelivr.net/gh/YunYouJun/sponsors/public/sponsors.svg">
+    <img src='https://cdn.jsdelivr.net/gh/YunYouJun/sponsors/public/sponsors.svg'/>
+  </a>
+</p>
+<!--END_SECTION:sponsors-->
+
+<br>
+
+![image](https://user-images.githubusercontent.com/29084184/193403886-5f05893c-74b2-404d-805e-b008ae43595b.png)
+
+# 历届电赛题目开源项目
+
+- 2019年：模拟电磁曲射炮（H题）https://github.com/Charmve/SimElectronicGun
+- 2017年：板球控制系统（B题）https://github.com/Charmve/BallPlate
+- 2015年：风力摆控制系统（B题）https://github.com/Charmve/Wind-Pendulum-Controlling-System
+
+其他嵌入式系统设计开源项目：
+
+- 3D 全彩高阶光立方 [[EmotionCube](https://github.com/Charmve/EmotionCube)] | [[LightCube](https://github.com/Charmve/LightCube)]
+- 电子信息、自动化、电子工程等专业课程设计/大作业 https://github.com/Charmve/Practicum4ECE
+
+<br>
+
 ## Maiwei AI Lab - 迈微AI研习社
 
 <a href="https://www.github.com/Charmve" target="_blank"><img src="https://img.shields.io/badge/创始人-@Charmve-000000.svg?style=flat-square&logo=GitHub"></a>  [![CircleCI](https://circleci.com/gh/Charmve/computer-vision-in-action.svg?style=svg)](https://circleci.com/gh/Charmve/computer-vision-in-action)
@@ -118,5 +151,3 @@ Hello World！
 <div align=center><img src="https://image.jiqizhixin.com/uploads/editor/d8595d93-e8c9-4abf-91f4-105384736912/%E5%9B%BE%E7%89%8712.jpg" height="330" width="330"></div>
 
 <div align=center size = 3><b>△微信扫一扫，关注我</b></div>
-
-
