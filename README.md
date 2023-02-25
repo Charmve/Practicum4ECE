@@ -1,21 +1,42 @@
 <div id="outputFigDisplay" class="fig">
     <pre id="taag_output_text" style="float:center;" class="flag" contenteditable="true">
+    # 沉淀与传播
         ____  _                       
       / ___|| |__    __ _  _ __  _ __ ___ __   __ ___ 
      | |    | '_ \  / _` || '__|| '_ ` _ \\ \ / // _ \
      | |___ | | | || (_| || |   | | | | | |\ V /|  __/
       \____||_| |_| \__,_||_|   |_| |_| |_| \_/  \___|                             
-                                                                自动驾驶、数字孪生、计算机视觉 #沉淀与传播
+                                                                自动驾驶、数字孪生、计算机视觉 
 </pre>
 </div>
 
-# Practicum - 电子信息、自动化、电子工程等专业课程设计/大作业
+<h1 align="center">PracticumECE</h1>
+<h2 align="center">电子信息、自动化、电子工程等专业课程设计/大作业/竞赛/毕业设计</h2>
+<div align="center">
 
-``一名普通电子信息本科生的实践项目，涉及板球控制系统、模拟电磁曲射炮（视觉定位）、MFC、人脸识别、数字图像处理、PID电机调速等，总结分享、沉淀传播、促进交流``
+<a href="https://github.com/Charmve/Practicum4ECE/stargazers"><img src="https://img.shields.io/github/stars/Charmve/Practicum4ECE" alt="Stars Badge"/></a>
+<a href="https://github.com/Charmve/Practicum4ECE/network/members"><img src="https://img.shields.io/github/forks/Charmve/Practicum4ECE" alt="Forks Badge"/></a>
+<a href="https://github.com/Charmve/Practicum4ECE/pulls"><img src="https://img.shields.io/github/issues-pr/Charmve/Practicum4ECE" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/Charmve/Practicum4ECE/issues"><img src="https://img.shields.io/github/issues/Charmve/Practicum4ECE" alt="Issues Badge"/></a>
+<a href="https://github.com/Charmve/Practicum4ECE/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Charmve/Practicum4ECE?color=2b9348"></a>
+<a href="https://github.com/peng-zhihui/ElectronBot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Charmve/Practicum4ECE?color=2b9348" alt="License Badge"/></a>
 
-This repository cantained my some protical project based-in-or-out my class theory, which includes basical experiment about how to transimit/receive text with each device, PID controler, MCU basical & advanced experiment, digital imagor processing respectively.
+<!--- ![](https://img.shields.io/badge/-%E8%B4%A2%E5%AF%8C%E8%87%AA%E7%94%B1-red)  --->
+<a href="https://github.com/sponsors/Charmve"><img src="https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#white" alt="License Badge"/></a>
+
+
+<i>喜欢这个项目吗？请考虑给 Star ⭐️ 以帮助改进！</i>
+
+</div>
+
+----
+
+> ``一名普通电子信息本科生的实践项目，涉及板球控制系统、模拟电磁曲射炮（视觉定位）、MFC、人脸识别、数字图像处理、PID电机调速等，总结分享、沉淀传播、促进交流``
+> 
+> This repository cantained my some protical project based-in-or-out my class theory, which includes basical experiment about how to transimit/receive text with each device, PID controler, MCU basical & advanced experiment, digital imagor processing respectively.
     
 <h3><a id="user-content-使用指南" class="anchor" aria-hidden="true" href="#使用指南"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg></a>使用指南</h3>
+
 <p>因为本项目完全免费开源，但现在被一些不良商家拿去卖钱， <b> 所以我需要你先帮我点一个 star </b>，助力原创，防止更多人上当受骗，也顺便支持我一下🚀 🚀 🚀</p>
 
 <p align="center">
